@@ -19,23 +19,25 @@ trait Polynomial1Ring[A] extends CommutativeRing[Polynomial1[A]] {
 
   def leadingCoefficient(polynomial: Polynomial1[A]): A = polynomial.coefficients.getOrElse(this.degree(polynomial), ring.zero)
 
+  def polynomial(coefficients: Map[Int, A]): Polynomial1[A] = Polynomial1(param, coefficients)
+
   def polynomial(xa: A*): Polynomial1[A] = {
 
     val exponentMap = xa.zipWithIndex.toMap.map({case (a, i) => (xa.size - i - 1, a)})
-    Polynomial1(param, exponentMap)
+    polynomial(exponentMap)
   }
 
-  override def plus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = Polynomial1(param, mapPlus(x.coefficients, y.coefficients))
+  override def plus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomial(mapPlus(x.coefficients, y.coefficients))
 
-  override def minus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = Polynomial1(param, mapMinus(x.coefficients, y.coefficients))
+  override def minus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomial(mapMinus(x.coefficients, y.coefficients))
 
-  override def one: Polynomial1[A] = Polynomial1(param, Map(0 -> ring.one))
+  override def one: Polynomial1[A] = polynomial(Map(0 -> ring.one))
 
-  override def zero: Polynomial1[A] = Polynomial1(param, Map(0 -> ring.zero))
+  override def zero: Polynomial1[A] = polynomial(Map(0 -> ring.zero))
 
-  override def negate(x: Polynomial1[A]): Polynomial1[A] = Polynomial1(param, mapNegate(x.coefficients))
+  override def negate(x: Polynomial1[A]): Polynomial1[A] = polynomial(mapNegate(x.coefficients))
 
-  override def times(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = Polynomial1(param, mapTimes(x.coefficients, y.coefficients))
+  override def times(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomial(mapTimes(x.coefficients, y.coefficients))
 
   private def mapPlus(x: Map[Int, A], y: Map[Int, A]): Map[Int, A] = binaryMapOp(ring.plus, ring.zero)(x, y)
 
@@ -61,21 +63,4 @@ object Polynomial1Ring {
   }
 }
 
-trait Polynomial1[A] {
-
-  def param: FormalParameter
-
-  def coefficients: Map[Int, A]
-
-}
-
-object Polynomial1 {
-  def apply[A](variable: FormalParameter, coef: Map[Int, A]) = {
-    new Polynomial1[A] {
-      override def param: FormalParameter = variable
-
-      override def coefficients: Map[Int, A] = coef
-
-    }
-  }
-}
+case class Polynomial1[A] (val param: FormalParameter, val coefficients: Map[Int, A])
