@@ -3,6 +3,7 @@ package finitefields
 import algebra.ring.Field
 
 //TODO: Ask non to make default implementations of quot and mod in Field
+//TODO: Is there a better exception available than ArithmeticException?
 trait PrimeField extends IntegersMod with Field[ResidueClass] {
 
   override def quot(x: ResidueClass, y: ResidueClass): ResidueClass = {

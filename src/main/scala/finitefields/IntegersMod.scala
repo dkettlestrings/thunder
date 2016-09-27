@@ -32,8 +32,6 @@ object IntegersMod {
   def apply(n: Int): IntegersMod = new IntegersMod {
     override def modulus = n
 
-    //TODO: Why did I need this?
-    //implicit def converterToIntegersMod(i: Int): ResidueClass = ResidueClass(i, modulus)
   }
 }
 
