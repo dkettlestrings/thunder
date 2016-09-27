@@ -78,4 +78,18 @@ class PrimeFieldTest extends FunSuite with Matchers {
     intercept[ArithmeticException](intsMod5.div(3, intsMod5.zero))
   }
 
+  //TODO: Remove this test if non accepts the default quot and mod implementations
+  test("A prime field has the Euclidean ring operations, but they're pointless") {
+
+    val intsMod5 = PrimeField(5)
+    implicit def converter = Converter(intsMod5)
+
+    intsMod5.quot(1, 2) should be (intsMod5.residueClass(1))
+    intsMod5.quot(0, 2) should be (intsMod5.residueClass(0))
+    intercept[ArithmeticException](intsMod5.quot(1, 0))
+
+    intsMod5.mod(1, 2) should be (intsMod5.residueClass(0))
+    intercept[ArithmeticException](intsMod5.mod(1, 0))
+  }
+
 }

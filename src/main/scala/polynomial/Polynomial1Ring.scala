@@ -1,6 +1,7 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
+import PolynomialHelper.{biggestKeyWithNonzeroValue, mapCoefficientsAndExtend, pairwiseBinaryListOp, trimLeadingZeros}
 
 //TODO: Make this a Euclidean Ring so that we can effectively make rational functions
 trait Polynomial1Ring[A] extends CommutativeRing[Polynomial1[A]] {
@@ -9,48 +10,41 @@ trait Polynomial1Ring[A] extends CommutativeRing[Polynomial1[A]] {
 
   def ring: CommutativeRing[A]
 
-  //TODO: Make this pretty!
   //TODO: For the zero case, return negative infinity!
-  def degree(polynomial: Polynomial1[A]): Int = {
-    val exponentsWithNonZeroCoefficients = polynomial.coefficients.filter(_._2 != ring.zero).keySet
-    if(exponentsWithNonZeroCoefficients.size == 0) 0
-    else exponentsWithNonZeroCoefficients.max
+  def degree(poly: Polynomial1[A]): Int = biggestKeyWithNonzeroValue(poly.coefficients, ring).getOrElse(-1)
+
+  def leadingCoefficient(polynomial: Polynomial1[A]): A = {
+
+    val d = degree(polynomial)
+    if(d < 0) ring.zero else polynomial.coefficients(d)
   }
 
-  def leadingCoefficient(polynomial: Polynomial1[A]): A = polynomial.coefficients.getOrElse(this.degree(polynomial), ring.zero)
+  def polynomial(xa: A*): Polynomial1[A] = polynomialFromList(xa.reverse.toList)
 
-  def polynomial(coefficients: Map[Int, A]): Polynomial1[A] = Polynomial1(param, coefficients)
+  override def plus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomialFromList(listPlus(x.coefficients, y.coefficients))
 
-  def polynomial(xa: A*): Polynomial1[A] = {
+  override def times(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = {
 
-    val exponentMap = xa.zipWithIndex.toMap.map({case (a, i) => (xa.size - i - 1, a)})
-    polynomial(exponentMap)
+    val xWithIndex: List[(A, Int)] = x.coefficients zipWithIndex
+    val termsOfXMultipliedByY: List[Polynomial1[A]] = xWithIndex.map({case (a, i) => {
+      polynomialFromList(mapCoefficientsAndExtend(a, i, y.coefficients, ring))
+    }})
+
+    termsOfXMultipliedByY.fold(zero)(plus(_, _))
   }
 
-  override def plus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomial(mapPlus(x.coefficients, y.coefficients))
+  override def one: Polynomial1[A] = polynomial(ring.one)
 
-  override def minus(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomial(mapMinus(x.coefficients, y.coefficients))
+  override def zero: Polynomial1[A] = polynomial(ring.zero)
 
-  override def one: Polynomial1[A] = polynomial(Map(0 -> ring.one))
+  override def negate(x: Polynomial1[A]): Polynomial1[A] = polynomialFromList(listNegate(x.coefficients))
 
-  override def zero: Polynomial1[A] = polynomial(Map(0 -> ring.zero))
+  private def polynomialFromList(coefficients: List[A]): Polynomial1[A] = Polynomial1[A](param, trimLeadingZeros(coefficients, ring))
 
-  override def negate(x: Polynomial1[A]): Polynomial1[A] = polynomial(mapNegate(x.coefficients))
+  private def listPlus(x: List[A], y: List[A]): List[A] = pairwiseBinaryListOp(ring.plus, ring.zero)(x, y)
 
-  override def times(x: Polynomial1[A], y: Polynomial1[A]): Polynomial1[A] = polynomial(mapTimes(x.coefficients, y.coefficients))
+  private def listNegate(x: List[A]): List[A] = x map ring.negate
 
-  private def mapPlus(x: Map[Int, A], y: Map[Int, A]): Map[Int, A] = binaryMapOp(ring.plus, ring.zero)(x, y)
-
-  private def mapMinus(x: Map[Int, A], y: Map[Int, A]): Map[Int, A] = binaryMapOp(ring.minus, ring.zero)(x, y)
-
-  private def mapNegate(x: Map[Int, A]): Map[Int, A] = x.mapValues(coef => ring.negate(coef))
-
-  private def mapTimes(x: Map[Int, A], y: Map[Int, A]): Map[Int, A] = binaryMapOp(ring.times, ring.one)(x, y)
-
-  private def binaryMapOp(op: (A, A) => A, unit: A)(x: Map[Int, A], y: Map[Int, A]): Map[Int, A] = {
-
-    (x.keySet ++ y.keySet).map(exp => exp -> op(x.getOrElse(exp, unit), y.getOrElse(exp, unit))).toMap
-  }
 }
 
 object Polynomial1Ring {
@@ -63,4 +57,5 @@ object Polynomial1Ring {
   }
 }
 
-case class Polynomial1[A] (val param: FormalParameter, val coefficients: Map[Int, A])
+// coefficients(i) is the coefficient for the i_th degree term
+case class Polynomial1[A] (val param: FormalParameter, val coefficients: List[A])
