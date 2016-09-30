@@ -8,7 +8,7 @@ trait Polynomial1Ring[A] extends CommutativeRing[Polynomial1[A]] {
 
   def param: FormalParameter
 
-  def ring: CommutativeRing[A]
+  implicit def ring: CommutativeRing[A]
 
   //TODO: For the zero case, return negative infinity!
   def degree(poly: Polynomial1[A]): Int = biggestKeyWithNonzeroValue(poly.coefficients, ring).getOrElse(-1)
@@ -58,4 +58,17 @@ object Polynomial1Ring {
 }
 
 // coefficients(i) is the coefficient for the i_th degree term
-case class Polynomial1[A] (val param: FormalParameter, val coefficients: List[A])
+case class Polynomial1[A] (val param: FormalParameter, val coefficients: List[A]) {
+
+  def +(other: Polynomial1[A])(implicit ring: Polynomial1Ring[A]): Polynomial1[A] = ring.plus(this, other)
+
+  def -(other: Polynomial1[A])(implicit ring: Polynomial1Ring[A]): Polynomial1[A] = ring.minus(this, other)
+
+  def *(other: Polynomial1[A])(implicit ring: Polynomial1Ring[A]): Polynomial1[A] = ring.times(this, other)
+
+  def ^(exp: Int)(implicit ring: Polynomial1Ring[A]): Polynomial1[A] = ring.pow(this, exp)
+
+  def degree(implicit ring: Polynomial1Ring[A]): Int = ring.degree(this)
+
+  def leadingCoefficient(implicit ring: Polynomial1Ring[A]): A = ring.leadingCoefficient(this)
+}

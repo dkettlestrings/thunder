@@ -4,6 +4,7 @@ import algebra.ring.CommutativeRing
 
 import scala.annotation.tailrec
 
+//TODO: Switch to infix notation and use implicit rings
 private[polynomial] object PolynomialHelper {
 
   @tailrec
@@ -37,5 +38,9 @@ private[polynomial] object PolynomialHelper {
 
   def mapCoefficientsAndExtend[A]( value: A, extendBy: Int, x: List[A], ring: CommutativeRing[A]): List[A] = {
     List.fill(extendBy)(ring.zero) ++ x.map(c => ring.times(value, c))
+  }
+
+  def multiplyByPowerOfParam[A](extendBy: Int, x: List[A], ring: CommutativeRing[A]): List[A] = {
+    mapCoefficientsAndExtend(ring.one, extendBy, x, ring)
   }
 }

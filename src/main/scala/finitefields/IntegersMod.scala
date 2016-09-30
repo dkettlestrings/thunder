@@ -40,7 +40,16 @@ object Converter {
   def apply(im: IntegersMod): (Int) => ResidueClass = (i: Int) => im.residueClass(i)
 }
 
-case class ResidueClass(residue: Int, modulus: Int)
+case class ResidueClass(residue: Int, modulus: Int) {
+
+  def +(other: ResidueClass)(implicit intsMod: IntegersMod) = intsMod.plus(this, other)
+
+  def -(other: ResidueClass)(implicit intsMod: IntegersMod) = intsMod.minus(this, other)
+
+  def *(other: ResidueClass)(implicit intsMod: IntegersMod) = intsMod.times(this, other)
+
+  def ^(exp: Int)(implicit intsMod: IntegersMod) = intsMod.pow(this, exp)
+}
 
 
 
