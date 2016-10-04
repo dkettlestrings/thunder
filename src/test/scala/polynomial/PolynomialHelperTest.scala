@@ -1,7 +1,7 @@
 package polynomial
 
 import org.scalatest.{FunSuite, Matchers}
-import PolynomialHelper.{biggestKeyWithNonzeroValue, mapCoefficientsAndExtend, pairwiseBinaryListOp, trimLeadingZeros}
+import PolynomialHelper.{biggestKeyWithNonzeroValue, mapCoefficientsAndExtend, multiplyByPowerOfParam, pairwiseBinaryListOp, trimLeadingZeros}
 import finitefields.{Converter, IntegersMod}
 
 class PolynomialHelperTest extends FunSuite with Matchers {
@@ -90,6 +90,18 @@ class PolynomialHelperTest extends FunSuite with Matchers {
     val c = List(two, one, zero, three)
 
     mapCoefficientsAndExtend(three, 2, c, ring) should be (List(zero, zero, two, three, zero, one))
+  }
+
+  test("multiplyByPowerOfParam does nothing if extendBy is zero") {
+
+    val c = List(two, one, zero, three)
+    multiplyByPowerOfParam(0, c, ring) should be (c)
+  }
+
+  test("multiplyByPowerOfParam adds extendBy zeros to the front") {
+
+    val c = List(two, one, zero, three)
+    multiplyByPowerOfParam(2, c, ring) should be (List(zero, zero, two, one, zero, three))
   }
 
 }

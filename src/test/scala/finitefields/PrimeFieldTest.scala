@@ -4,11 +4,14 @@ import org.scalatest.{FunSuite, Matchers}
 
 class PrimeFieldTest extends FunSuite with Matchers {
 
-  test("The finite field of integers moudlo a prime can be constructed via a prime") {
+  implicit def intsMod5 = PrimeField(5)
+  implicit def converter = Converter(intsMod5)
 
-    val intsMod5 = PrimeField(5)
-    intsMod5 should be
-  }
+  val zero = intsMod5.residueClass(0)
+  val one = intsMod5.residueClass(1)
+  val two = intsMod5.residueClass(2)
+  val three = intsMod5.residueClass(3)
+  val four = intsMod5.residueClass(4)
 
   test("In order to protect yourself, you can check for primality using isPrime") {
 
@@ -26,57 +29,36 @@ class PrimeFieldTest extends FunSuite with Matchers {
 
   test("However, you can optionally check in the constructor to make sure the modulus is prime") {
 
-    val intsMod5 = PrimeField(5, checkPrimality = true)
-    intsMod5 should be
+    val intsMod7 = PrimeField(7, checkPrimality = true)
+    intsMod7 should be
 
     intercept[IllegalArgumentException](PrimeField(8, checkPrimality = true))
   }
 
-  test("We still have all of the regular commutative ring stuff") {
+  test("Division works") {
 
-    val intsMod5 = PrimeField(5)
-    implicit def converter = Converter(intsMod5)
-
-    intsMod5.plus(2,4) should be (intsMod5.residueClass(1))
-    intsMod5.minus(2, 4) should be (intsMod5.residueClass(3))
-    intsMod5.times(2, 4) should be (intsMod5.residueClass(3))
-    intsMod5.pow(2, 4) should be (intsMod5.residueClass(1))
-    intsMod5.negate(2) should be (intsMod5.residueClass(3))
-    intsMod5.zero should be (intsMod5.residueClass(0))
-    intsMod5.one should be (intsMod5.residueClass(1))
+    zero / one should be (zero)
+    one / one should be (one)
+    two / two should be (one)
+    two / three should be (four)
+    three / four should be (two)
+    four / three should be (three)
   }
 
-  //TODO: Add inv of zero and divide by zero
-  test("But now we have multiplicative inverses") {
+  test("Inversion works") {
 
-    val intsMod5 = PrimeField(5)
-    implicit def converter = Converter(intsMod5)
-
-    intsMod5.inv(1) should be (intsMod5.residueClass(1))
-    intsMod5.inv(2) should be (intsMod5.residueClass(3))
-    intsMod5.inv(3) should be (intsMod5.residueClass(2))
-    intsMod5.inv(4) should be (intsMod5.residueClass(4))
+    one.inv should be (one)
+    two.inv should be (three)
+    three.inv should be (two)
+    four.inv should be (four)
   }
 
-  test("And of course, division") {
+  test("You can't invert or divide by zero") {
 
-    val intsMod5 = PrimeField(5)
-    implicit def converter = Converter(intsMod5)
-
-    intsMod5.div(1, 1) should be (intsMod5.residueClass(1))
-    intsMod5.div(4, 3) should be (intsMod5.residueClass(3))
-    intsMod5.div(3, 4) should be (intsMod5.residueClass(2))
+    intercept[ArithmeticException](zero.inv)
+    intercept[ArithmeticException](one / zero)
   }
 
-  test("But these aren't defined for zero") {
-
-    val intsMod5 = PrimeField(5)
-    implicit def converter = Converter(intsMod5)
-
-    intercept[ArithmeticException](intsMod5.inv(intsMod5.zero))
-
-    intercept[ArithmeticException](intsMod5.div(3, intsMod5.zero))
-  }
 
   //TODO: Remove this test if non accepts the default quot and mod implementations
   test("A prime field has the Euclidean ring operations, but they're pointless") {
@@ -84,11 +66,11 @@ class PrimeFieldTest extends FunSuite with Matchers {
     val intsMod5 = PrimeField(5)
     implicit def converter = Converter(intsMod5)
 
-    intsMod5.quot(1, 2) should be (intsMod5.residueClass(1))
-    intsMod5.quot(0, 2) should be (intsMod5.residueClass(0))
+    intsMod5.quot(1, 2) should be (one)
+    intsMod5.quot(0, 2) should be (zero)
     intercept[ArithmeticException](intsMod5.quot(1, 0))
 
-    intsMod5.mod(1, 2) should be (intsMod5.residueClass(0))
+    intsMod5.mod(1, 2) should be (zero)
     intercept[ArithmeticException](intsMod5.mod(1, 0))
   }
 

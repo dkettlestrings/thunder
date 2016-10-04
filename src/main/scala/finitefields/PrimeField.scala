@@ -6,6 +6,23 @@ import algebra.ring.Field
 //TODO: Is there a better exception available than ArithmeticException?
 trait PrimeField extends IntegersMod with Field[ResidueClass] {
 
+  //TODO: Use the Extended Euclidean Algorithm
+  def inv(x: ResidueClass): ResidueClass = {
+    if(x == zero) throw new ArithmeticException("Dividing by zero")
+    else {
+      val possibleMods = 1 until modulus
+      val asResClasses = possibleMods map residueClass
+      val timesInput = asResClasses map (times(x, _))
+      val association = asResClasses zip timesInput
+      val found = association find (_._2 == one)
+      val res = found.get
+      val inverse = res._1
+      inverse
+    }
+  }
+
+  override def div(x: ResidueClass, y: ResidueClass): ResidueClass = times(x, inv(y))
+
   override def quot(x: ResidueClass, y: ResidueClass): ResidueClass = {
     if(y == zero) throw new ArithmeticException("Dividing by zero")
     else if(x == zero) zero
@@ -16,23 +33,6 @@ trait PrimeField extends IntegersMod with Field[ResidueClass] {
     if(y == zero) throw new ArithmeticException("Dividing by zero")
     else zero
   }
-
-  //TODO: Use the Extended Euclidean Algorithm
-  def inv(x: ResidueClass): ResidueClass = {
-    if(x == zero) throw new ArithmeticException("Dividing by zero")
-    else {
-      val possibleMods = (1 until modulus)
-      val asResClasses = possibleMods map residueClass
-      val timesInput = asResClasses map (times(x, _))
-      val association = asResClasses zip timesInput
-      val found = association find (_._2 == one)
-      val res = found.get
-      val invrse = res._1
-      invrse
-    }
-  }
-
-  override def div(x: ResidueClass, y: ResidueClass): ResidueClass = times(x, inv(y))
 
 }
 
@@ -53,6 +53,7 @@ object PrimeField {
 
 //TODO: A better primality check
 object isPrime {
+
   def apply(n: Int): Boolean = {
 
     if(n < 2) false
@@ -61,6 +62,5 @@ object isPrime {
       val bound = scala.math.sqrt(n.toDouble).toInt + 1
       !(2 to bound).map(divisor => n % divisor).contains(0)
     }
-
   }
 }

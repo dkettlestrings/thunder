@@ -2,4 +2,4 @@ language: scala
 scala:
     - 2.11.7
 script:
-    - sbt clean test
+    - sbt clean coverage test coverageReport
