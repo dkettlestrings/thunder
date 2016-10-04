@@ -1,7 +1,6 @@
 package finitefields
 
 import org.scalatest.{FunSuite, Matchers}
-import spotcheck.CommutativeRingCheck
 
 class IntegersModTest extends FunSuite with Matchers {
 
@@ -82,11 +81,4 @@ class IntegersModTest extends FunSuite with Matchers {
     intsMod4.zero should be (zero)
     intsMod4.one should be (one)
   }
-
-  test("It is a commutative ring") {
-
-    val elements = (0 to 3) map {intsMod4.residueClass(_)}
-    CommutativeRingCheck(elements) should be (true)
-  }
-
 }

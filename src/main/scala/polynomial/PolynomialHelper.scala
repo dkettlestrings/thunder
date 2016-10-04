@@ -4,12 +4,12 @@ import algebra.ring.CommutativeRing
 
 import scala.annotation.tailrec
 
-//TODO: Switch to infix notation and use implicit rings
+//TODO: Investigate whether this logic can be simplified and moved into Polynomial1Ring
 private[polynomial] object PolynomialHelper {
 
   @tailrec
   def trimLeadingZeros[A](a: List[A], ring: CommutativeRing[A]): List[A] = {
-    if (a.size == 0) return a
+    if (a.isEmpty) a
     else if (a.last == ring.zero) trimLeadingZeros(a.init, ring)
     else a
   }

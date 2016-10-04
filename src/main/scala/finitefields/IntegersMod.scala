@@ -9,12 +9,14 @@ trait IntegersMod extends CommutativeRing[ResidueClass] {
 
   def residueClass(n: Int): ResidueClass = ResidueClass(RemainderFinder(n, modulus), modulus)
 
+  override def one: ResidueClass = residueClass(1)
+
+  override def zero: ResidueClass = residueClass(0)
+
   override def plus(x: ResidueClass, y: ResidueClass): ResidueClass = {
     require(x.modulus == modulus && y.modulus == modulus)
     residueClass(x.residue + y.residue)
   }
-
-  override def one: ResidueClass = residueClass(1)
 
   override def negate(x: ResidueClass): ResidueClass = residueClass(-x.residue)
 
@@ -22,9 +24,6 @@ trait IntegersMod extends CommutativeRing[ResidueClass] {
     require(x.modulus == modulus && y.modulus == modulus)
     residueClass(x.residue * y.residue)
   }
-
-  override def zero: ResidueClass = residueClass(0)
-
 }
 
 object IntegersMod {
@@ -49,6 +48,11 @@ case class ResidueClass(residue: Int, modulus: Int) {
   def *(other: ResidueClass)(implicit intsMod: IntegersMod) = intsMod.times(this, other)
 
   def ^(exp: Int)(implicit intsMod: IntegersMod) = intsMod.pow(this, exp)
+
+  def /(other: ResidueClass)(implicit intsMod: PrimeField) = intsMod.div(this, other)
+
+  def inv(implicit intsMod: PrimeField) = intsMod.inv(this)
+
 }
 
 

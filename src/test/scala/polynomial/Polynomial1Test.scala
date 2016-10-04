@@ -3,7 +3,6 @@ package polynomial
 import finitefields.{Converter, IntegersMod, ResidueClass}
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.Predef.X
-import spotcheck.CommutativeRingCheck
 
 class Polynomial1Test extends FunSuite with Matchers {
 
@@ -78,22 +77,12 @@ class Polynomial1Test extends FunSuite with Matchers {
 
   test("Negation works") {
 
-    polyRing.negate(poly(1, 3, 3)) should be (poly(3, 1, 1))
+    poly(1, 3, 3).negate should be (poly(3, 1, 1))
   }
 
   test("The ring has zero and one") {
 
     polyRing.zero should be (poly(0))
     polyRing.one should be (poly(1))
-  }
-
-  test("It is a commutative ring") {
-
-    val degreeZero = (0 to 3) map {poly(_)}
-    val degreeOne = degreeZero map {_ * poly(1, 0)}
-    val degreeTwo = degreeOne map {_ * poly(1, 0)}
-    val degreeThree = degreeTwo map {_ * poly(1, 0)}
-
-    CommutativeRingCheck(degreeZero ++ degreeOne ++ degreeTwo ++ degreeThree) should be (true)
   }
 }
