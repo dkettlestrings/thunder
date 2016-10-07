@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/dkettlestrings/thunder.svg?branch=master)](https://travis-ci.org/dkettlestrings/thunder)
 [![Coverage Status](https://coveralls.io/repos/github/dkettlestrings/thunder/badge.svg?branch=master)](https://coveralls.io/github/dkettlestrings/thunder?branch=master)
+[![Codacy Badge](https://www.codacy.com/project/badge/efff939a9e074591ab86b1e6017d1c5a)]
+(https://www.codacy.com/public/dkettlestrings/thunder.git)
 
 A library for doing algebraic/geometric number theory for function fields over finite fields.
 
