@@ -73,4 +73,9 @@ case class Polynomial1[A](param: FormalParameter, coefficients: List[A]) {
   def leadingCoefficient(implicit ring: Polynomial1Ring[A]): A = ring.leadingCoefficient(this)
 
   def negate(implicit ring: Polynomial1Ring[A]): Polynomial1[A] = ring.negate(this)
+
+  override def toString: String = {
+
+    coefficients.zipWithIndex.map({case (a: A, i: Int) => s"($a)$param^$i"}).reverse.mkString(" + ")
+  }
 }
