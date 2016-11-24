@@ -182,4 +182,13 @@ class Polynomial1RingOverFieldTest extends FunSuite with Matchers {
     polyRing.mod(p2 * p3 * p4 + p3, p2 * p3) should be (p3)
   }
 
+  test("foo") {
+
+    val p1 = poly(1, 2)
+    val p2 = poly(1, 3)
+
+    polyRing.quot(p2, p1) should be (polyRing.one)
+    polyRing.mod(p2, p1) should be (poly(1))
+  }
+
 }

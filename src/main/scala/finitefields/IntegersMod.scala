@@ -53,6 +53,8 @@ case class ResidueClass(residue: Int, modulus: Int) {
 
   def inv(implicit intsMod: PrimeField) = intsMod.inv(this)
 
+  override def toString: String = residue.toString
+
 }
 
 

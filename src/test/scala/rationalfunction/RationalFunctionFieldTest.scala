@@ -131,3 +131,4 @@ class RationalFunctionFieldTest extends FunSuite with Matchers {
     intercept[ArithmeticException](rationalFunctions.mod(rationalFunctions.one, rationalFunctions.zero))
   }
 }
+
