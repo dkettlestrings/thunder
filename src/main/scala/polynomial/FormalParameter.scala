@@ -1,8 +1,17 @@
 package polynomial
 
-case class FormalParameter(name: String) {
+trait FormalParameter {
+
+  def name: String
 
   override def toString: String = name
+
+}
+
+object FormalParameter {
+  def apply(string: String): FormalParameter = new FormalParameter {
+    override def name: String = string
+  }
 }
 
 object Predef {

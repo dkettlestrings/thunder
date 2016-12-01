@@ -1,7 +1,7 @@
 package rationalfunction
 
 import algebra.ring.Field
-import polynomial.{FormalParameter, Polynomial1, Polynomial1RingOverField}
+import polynomial.{FormalParameter, Polynomial, PolynomialRingOverField}
 
 trait RationalFunctionField[A, B <: Field[A]] extends Field[RationalFunction[A, B]] {
 
@@ -9,9 +9,9 @@ trait RationalFunctionField[A, B <: Field[A]] extends Field[RationalFunction[A, 
 
   implicit def fieldOfConstants: B
 
-  implicit def polynomialRing: Polynomial1RingOverField[A, B] = Polynomial1RingOverField(param, fieldOfConstants)
+  implicit def polynomialRing: PolynomialRingOverField[A, B] = PolynomialRingOverField(param, fieldOfConstants)
 
-  def rationalFunction(num: Polynomial1[A], denom: Polynomial1[A]): RationalFunction[A, B] = {
+  def rationalFunction(num: Polynomial[A], denom: Polynomial[A]): RationalFunction[A, B] = {
     if(denom == polynomialRing.zero) throw new ArithmeticException("Dividing by zero")
     RationalFunction[A, B](polynomialRing.param, num, denom)
   }
@@ -68,7 +68,7 @@ object RationalFunctionField {
   }
 }
 
-case class RationalFunction[A, B <: Field[A]](param: FormalParameter, numerator: Polynomial1[A], denominator: Polynomial1[A]) {
+case class RationalFunction[A, B <: Field[A]](param: FormalParameter, numerator: Polynomial[A], denominator: Polynomial[A]) {
 
   def +(other: RationalFunction[A, B])(implicit field: RationalFunctionField[A, B]): RationalFunction[A, B] = field.plus(this, other)
 
@@ -85,4 +85,6 @@ case class RationalFunction[A, B <: Field[A]](param: FormalParameter, numerator:
   def ^(exp: Int)(implicit field: RationalFunctionField[A, B]): RationalFunction[A, B] = field.pow(this, exp)
 
   def ===(other: RationalFunction[A, B])(implicit field: RationalFunctionField[A, B]): Boolean = field.areEqual(this, other)
+
+  def !==(other: RationalFunction[A, B])(implicit field: RationalFunctionField[A, B]): Boolean = !field.areEqual(this, other)
 }

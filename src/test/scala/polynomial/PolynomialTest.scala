@@ -1,16 +1,22 @@
 package polynomial
 
-import finitefields.{Converter, IntegersMod, ResidueClass}
+import core.IntegerModding._
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.Predef.X
+import core.{NegativeInfinity, ResidueClass}
+import AdjoiningOperations._
 
-class Polynomial1Test extends FunSuite with Matchers {
+class PolynomialTest extends FunSuite with Matchers {
 
-  implicit def intsMod4 = IntegersMod(4)
-  implicit def converter = Converter(intsMod4)
-  implicit def polyRing = Polynomial1Ring(X, intsMod4)
-  def poly(xs: ResidueClass*) = polyRing.polynomial(xs: _*)
+  implicit val intsMod4 = IntegersMod(4)
+  implicit val polyRing = intsMod4 adjoin X
+  implicit def converter = intToResidueClass(4)
+  def poly(xs: ResidueClass[Int]*) = polyRing.polynomial(xs: _*)
+
+  //TODO: again, we need a classOf operation
   val zero = intsMod4.zero
+  val one = intsMod4.one
+  val two = one + one
 
   test("Leading zero coefficients are ignored") {
 
@@ -22,25 +28,24 @@ class Polynomial1Test extends FunSuite with Matchers {
     val poly1 = poly(1, 2, 3)
     val poly2 = poly(0, 2, 3, 3)
 
-    poly1.leadingCoefficient should be (intsMod4.residueClass(1))
-    poly2.leadingCoefficient should be (intsMod4.residueClass(2))
+    poly1.leadingCoefficient should be (one)
+    poly2.leadingCoefficient should be (two)
     polyRing.zero.leadingCoefficient should be (zero)
   }
 
-  test("The degree function works as expected") {
+  test("The degree function works as expected, but you have to use the extended integers (so you can get negative infinity)") {
 
-    poly(2, 2, 0, 1).degree should be (3)
-    poly(0, 2, 2, 0, 1).degree should be (3)
+    poly(2, 2, 0, 1).degree.toInt should be (3)
+    poly(0, 2, 2, 0, 1).degree.toInt should be (3)
 
-    poly(3, 2, 1).degree should be (2)
-    poly(2, 1).degree should be (1)
-    poly(3).degree should be (0)
+    poly(3, 2, 1).degree.toInt should be (2)
+    poly(2, 1).degree.toInt should be (1)
+    poly(3).degree.toInt should be (0)
   }
 
-  //TODO: No it isn't, it's negative infinity!
-  test("By convention, the degree of the zero polynomial is defined as -1") {
+  test("By convention, the degree of the zero polynomial is defined as negative infinity") {
 
-    polyRing.zero.degree should be (-1)
+    polyRing.zero.degree should be (NegativeInfinity)
   }
 
   test("Addition works") {

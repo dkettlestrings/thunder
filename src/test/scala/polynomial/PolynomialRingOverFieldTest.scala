@@ -1,16 +1,19 @@
 package polynomial
 
-import finitefields.{Converter, PrimeField, ResidueClass}
+import core.IntegerModding._
 import polynomial.Predef.X
+import AdjoiningOperations._
+import core.ResidueClass
 import org.scalatest.{FunSuite, Matchers}
 
-class Polynomial1RingOverFieldTest extends FunSuite with Matchers {
+class PolynomialRingOverFieldTest extends FunSuite with Matchers {
 
-  implicit def intsMod5 = PrimeField(5)
-  implicit def converter = Converter(intsMod5)
-  implicit def polyRing = Polynomial1RingOverField[ResidueClass, PrimeField](X, intsMod5)  //TODO: Can't these types be inferred?
-  def poly(xs: ResidueClass*) = polyRing.polynomial(xs: _*)
-  val zero = intsMod5.zero
+  implicit val intsMod5 = PrimeField(5)
+  implicit val polyRing = intsMod5 adjoin X
+  implicit def converter = intToResidueClass(5)
+
+  //TODO once more, a classof method would be nice
+  def poly(xs: ResidueClass[Int]*) = polyRing.polynomial(xs: _*)
 
   test("The quotient of a constant divided by a constant is a constant") {
 
@@ -49,7 +52,7 @@ class Polynomial1RingOverFieldTest extends FunSuite with Matchers {
     val p1 = poly(1, 2, 4)
     val p2 = poly(1, 2, 3)
 
-    polyRing.quot(p1, p2).degree should be (0)
+    polyRing.quot(p1, p2).degree.toInt should be (0)
   }
 
   test("The quotient of a polynomial divided by a polynomial of lesser degree should have degree equal the difference") {
@@ -58,9 +61,9 @@ class Polynomial1RingOverFieldTest extends FunSuite with Matchers {
     val p2 = poly(1, 2)
     val p3 = poly(1, 2, 3)
 
-    polyRing.quot(p2, p1).degree should be (1)
-    polyRing.quot(p3, p1).degree should be (2)
-    polyRing.quot(p3, p2).degree should be (1)
+    polyRing.quot(p2, p1).degree.toInt should be (1)
+    polyRing.quot(p3, p1).degree.toInt should be (2)
+    polyRing.quot(p3, p2).degree.toInt should be (1)
   }
 
   test("The quotient for polynomials should work when they divide evenly") {
@@ -136,7 +139,7 @@ class Polynomial1RingOverFieldTest extends FunSuite with Matchers {
     val p1 = poly(1, 2)
     val p2 = poly(1, 3)
 
-    polyRing.quot(p1, p2).degree should be (0)
+    polyRing.quot(p1, p2).degree.toInt should be (0)
   }
 
   test("The mod of a polynomial divided by a polynomial of lesser degree should have degree <= the degree of the numerator") {
