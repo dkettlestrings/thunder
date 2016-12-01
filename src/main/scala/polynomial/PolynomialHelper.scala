@@ -4,8 +4,8 @@ import algebra.ring.CommutativeRing
 
 import scala.annotation.tailrec
 
-//TODO: Investigate whether this logic can be simplified and moved into Polynomial1Ring
-private[polynomial] object PolynomialHelper {
+//TODO: Investigate whether this logic can be simplified or moved
+object PolynomialHelper {
 
   @tailrec
   def trimLeadingZeros[A](a: List[A], ring: CommutativeRing[A]): List[A] = {
@@ -43,4 +43,7 @@ private[polynomial] object PolynomialHelper {
   def multiplyByPowerOfParam[A](extendBy: Int, x: List[A], ring: CommutativeRing[A]): List[A] = {
     mapCoefficientsAndExtend(ring.one, extendBy, x, ring)
   }
+
+  def polynomialFromList[A](coefficients: List[A])(implicit param: FormalParameter, coefficientRing: CommutativeRing[A]): Polynomial[A] = Polynomial[A](param, trimLeadingZeros[A](coefficients, coefficientRing))
+
 }

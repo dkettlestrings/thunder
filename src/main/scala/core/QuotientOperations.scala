@@ -2,6 +2,8 @@ package core
 
 import algebra.ring.{EuclideanRing, Field}
 
+import language.implicitConversions
+
 object QuotientOperations {
 
   implicit def toRationalizable[A](er: EuclideanRing[A]): RationalizeAbleEuclideanRing[A] = new RationalizeAbleEuclideanRing[A] {

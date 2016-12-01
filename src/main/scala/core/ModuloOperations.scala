@@ -2,6 +2,8 @@ package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
 
+import language.implicitConversions
+
 object ModuloOperations {
 
   implicit def toModdable[A](er: EuclideanRing[A]): ModdableEuclideanRing[A] = new ModdableEuclideanRing[A] {
@@ -54,7 +56,7 @@ object ModuloOperations {
       override def div(x: ResidueClass[A], y: ResidueClass[A]): ResidueClass[A] = {
         require(x.modulus == y.modulus)
         require(y != this.zero)
-        val possibleInverses = context.elemmentsUpTo(y.modulus)
+        val possibleInverses = context.elementsUpTo(y.modulus)
         val inverseOption = possibleInverses.find(elem => this.times(ResidueClass[A](y.representative, y.modulus), ResidueClass[A](elem, y.modulus)) == this.one)
         val yInverse: ResidueClass[A] = inverseOption match {
           case Some(e) => ResidueClass(e, y.modulus)

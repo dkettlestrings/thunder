@@ -1,7 +1,7 @@
 package core
 
+import core.IntegerModding._
 import org.scalatest.{FunSuite, Matchers}
-import IntegerModding._
 
 class IntegerModdingTest extends FunSuite with Matchers {
 
@@ -16,7 +16,4 @@ class IntegerModdingTest extends FunSuite with Matchers {
     implicit val intsMod3 = PrimeField(3)
     intsMod3.zero + intsMod3.one should be (intsMod3.one)
   }
-
-
-
 }

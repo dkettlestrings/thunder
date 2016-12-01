@@ -1,8 +1,8 @@
 package core
 
 import algebra.ring.{CommutativeRing, Field}
-import ModuloOperations._
-import CommonEuclideanModdingContexts.IntegerModdingContext
+import core.CommonEuclideanModdingContexts.IntegerModdingContext
+import core.ModuloOperations._
 
 object IntegerModding {
 
@@ -12,6 +12,6 @@ object IntegerModding {
 
   def PrimeField(p: Int): Field[ResidueClass[Int]] = Integers() modulo_f p
 
-  def intToResidueClass(n: Int): Int => ResidueClass[Int] = x => ResidueClass(x, n)
+  def intToResidueClass(modulus: Int): Int => ResidueClass[Int] = x => ResidueClass(x, modulus)
 
 }

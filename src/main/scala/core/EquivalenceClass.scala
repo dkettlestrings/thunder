@@ -2,7 +2,6 @@ package core
 
 trait EquivalenceClass[A] {
 
-  //TODO: A better name for this?
   def relation: EquivalenceRelation[A]
 
   def representative: A

@@ -1,7 +1,7 @@
 package core
 
+import core.ModuloOperations.toModdable
 import org.scalatest.{FunSuite, Matchers}
-import ModuloOperations.toModdable
 
 class IntegersModNTest extends FunSuite with Matchers {
 
@@ -60,7 +60,7 @@ class IntegersModNTest extends FunSuite with Matchers {
     three * three should be (one)
   }
 
-  test("Negation works as expected, but you cant use it with a preceeding negative sign") {
+  test("Negation works as expected, but you cant use it with a preceding negative sign") {
 
     assertDoesNotCompile("val a = -zero")
     zero.negate should be (zero)

@@ -16,7 +16,7 @@ object FormalParameter {
 
 object Predef {
 
-  val X = FormalParameter("X")
-  val Y = FormalParameter("Y")
-  val Z = FormalParameter("Z")
+  implicit val X = FormalParameter("X")
+  implicit val Y = FormalParameter("Y")
+  implicit val Z = FormalParameter("Z")
 }
