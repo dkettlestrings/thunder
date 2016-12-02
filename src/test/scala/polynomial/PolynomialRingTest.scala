@@ -10,7 +10,7 @@ import PolynomialOps._
 class PolynomialRingTest extends FunSuite with Matchers {
 
   implicit val intsMod4 = IntegersMod(4)
-  implicit val polyRing = intsMod4 cr_adjoin_ply X
+  implicit val polyRing = intsMod4 r_adjoin X
   def classOf = intToResidueClass(4)
 
   //TODO: again, we need a classOf operation

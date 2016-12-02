@@ -38,4 +38,9 @@ class EquivalenceClassTest extends FunSuite with Matchers {
     classForZero.contains(6) should be (true)
     classForZero.contains(7) should be (false)
   }
+
+  test("Equality checks on equivalence classes do type checks") {
+
+    classForZero.equals(0) should be (false)
+  }
 }
