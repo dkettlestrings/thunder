@@ -1,13 +1,22 @@
 package polynomial
 
-case class FormalParameter(name: String) {
+trait FormalParameter {
+
+  def name: String
 
   override def toString: String = name
+
+}
+
+object FormalParameter {
+  def apply(string: String): FormalParameter = new FormalParameter {
+    override def name: String = string
+  }
 }
 
 object Predef {
 
-  val X = FormalParameter("X")
-  val Y = FormalParameter("Y")
-  val Z = FormalParameter("Z")
+  implicit val X = FormalParameter("X")
+  implicit val Y = FormalParameter("Y")
+  implicit val Z = FormalParameter("Z")
 }
