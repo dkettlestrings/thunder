@@ -9,7 +9,7 @@ import PolynomialOps._
 class PolynomialRingOverFieldTest extends FunSuite with Matchers {
 
   implicit val intsMod5 = PrimeField(5)
-  implicit val polyRing = intsMod5 fld_adjoin_ply X
+  implicit val polyRing = intsMod5 f_adjoin X
   def classOf = intToResidueClass(5)
 
   val one = classOf(1)

@@ -9,7 +9,7 @@ import polynomial.Predef.X
 class PolynomialHelperTest extends FunSuite with Matchers {
 
   implicit val intsMod4 = IntegersMod(4)
-  implicit val polyRing = intsMod4 cr_adjoin_ply X
+  implicit val polyRing = intsMod4 r_adjoin X
   implicit def converter = intToResidueClass(4)
 
   //TODO: implement some kind of classOf method so you don't have to do this crappy addition

@@ -20,7 +20,7 @@ object AdjoiningOperations {
 
     def domain: CommutativeRing[A]
 
-    def cr_adjoin_ply(p: FormalParameter): CommutativeRing[Polynomial[A]]= new CommutativeRing[Polynomial[A]] with PolynomialRingOps[A] {
+    def r_adjoin(p: FormalParameter): CommutativeRing[Polynomial[A]]= new CommutativeRing[Polynomial[A]] with PolynomialRingOps[A] {
 
       override def coefficientRing: CommutativeRing[A] = domain
 
@@ -33,13 +33,13 @@ object AdjoiningOperations {
 
     implicit def field: Field[A]
 
-    def fld_adjoin_ply(p: FormalParameter): EuclideanRing[Polynomial[A]] = new EuclideanRing[Polynomial[A]] with PolynomialRingOps[A] {
+    def f_adjoin(p: FormalParameter): EuclideanRing[Polynomial[A]] = new EuclideanRing[Polynomial[A]] with PolynomialRingOps[A] {
 
       override def coefficientRing: CommutativeRing[A] = field
 
       override def param: FormalParameter = p
 
-      implicit val underlyingPolynomialRing = field cr_adjoin_ply p
+      implicit val underlyingPolynomialRing = field r_adjoin p
       implicit val ringOps = underlyingPolynomialRing.asInstanceOf[PolynomialRingOps[A]]
 
       override def quot(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {

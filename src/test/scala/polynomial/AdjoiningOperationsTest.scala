@@ -11,7 +11,7 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
 
   test("You can create a polynomial ring over the integers") {
 
-    implicit val polyRing = Integers() cr_adjoin_ply X
+    implicit val polyRing = Integers() r_adjoin X
 
     polynomial(0) should be (polyRing.zero)
     polynomial(2, 3, 1) + polynomial(2, -1) should be (polynomial(2, 5, 0))
@@ -20,7 +20,7 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
   test("You can create a polynomial over the integers modulo n") {
 
     implicit val intsMod4 = IntegersMod(4)
-    implicit val polyRing = intsMod4 cr_adjoin_ply X
+    implicit val polyRing = intsMod4 r_adjoin X
     def classOf = intToResidueClass(4)
 
     val zero = classOf(0)
@@ -39,7 +39,7 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
   test("You can create a polynomial over the integers modulo p") {
 
     implicit val intsMod3 = PrimeField(3)
-    implicit val polyRing = intsMod3 fld_adjoin_ply X
+    implicit val polyRing = intsMod3 f_adjoin X
     implicit def classOf = intToResidueClass(3)
 
     val zero = classOf(0)
