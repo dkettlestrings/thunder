@@ -16,6 +16,8 @@ class IntegersModNTest extends FunSuite with Matchers {
 
   test("Integers modulo a value should be an abelian group under addition") {
 
+    zero == zero
+
     zero + zero should be (zero)
     zero + one should be (one)
     zero + two should be (two)
