@@ -10,13 +10,12 @@ class PolynomialHelperTest extends FunSuite with Matchers {
 
   implicit val intsMod4 = IntegersMod(4)
   implicit val polyRing = intsMod4 r_adjoin X
-  implicit def converter = intToResidueClass(4)
+  def classOf = intToResidueClass(4)
 
-  //TODO: implement some kind of classOf method so you don't have to do this crappy addition
-  val zero = intsMod4.zero
-  val one = intsMod4.one
-  val two = one + one
-  val three = one + two
+  val zero = classOf(0)
+  val one = classOf(1)
+  val two = classOf(2)
+  val three = classOf(3)
 
   test("trimLeadingZeros has no effect if the biggest coefficient has non-zero value") {
 

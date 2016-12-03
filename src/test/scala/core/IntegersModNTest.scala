@@ -1,18 +1,18 @@
 package core
 
 import core.ModuloOperations.toModdable
+import IntegerModding._
 import org.scalatest.{FunSuite, Matchers}
 
 class IntegersModNTest extends FunSuite with Matchers {
 
   implicit def intsMod4 = Integers() modulo_r 4
+  def classOf = intToResidueClass(4)
 
-  val zero = intsMod4.zero
-  val one = intsMod4.one
-
-  // TODO: implement a classOf function e.g. `intsMod4 classOf 3`
-  val two = one + one
-  val three = one + two
+  val zero = classOf(0)
+  val one = classOf(1)
+  val two = classOf(2)
+  val three = classOf(3)
 
   test("Integers modulo a value should be an abelian group under addition") {
 
