@@ -13,7 +13,6 @@ class PolynomialRingTest extends FunSuite with Matchers {
   implicit val polyRing = intsMod4 r_adjoin X
   def classOf = intToResidueClass(4)
 
-  //TODO: again, we need a classOf operation
   val zero = classOf(0)
   val one = classOf(1)
   val two = classOf(2)
