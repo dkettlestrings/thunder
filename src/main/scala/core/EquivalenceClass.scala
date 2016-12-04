@@ -9,7 +9,7 @@ trait EquivalenceClass[A] {
   def contains(a: A): Boolean = relation.areEquivalent(representative, a)
 
   //TODO: It would be nice to know if they use the same equivalence relation
-  def ==(eq: EquivalenceClass[A]): Boolean = this.contains(eq.representative)
+  def ==(eq: EquivalenceClass[A]): Boolean = this.contains(eq.representative) && eq.contains(this.representative)
 
   def !=(eq: EquivalenceClass[A]): Boolean = !(this == eq)
 
