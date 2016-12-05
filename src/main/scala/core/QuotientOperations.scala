@@ -4,6 +4,9 @@ import algebra.ring.{EuclideanRing, Field}
 
 import language.implicitConversions
 
+/**
+  * Adds the operation of creating a quotient field from a EuclideanRing.
+  */
 object QuotientOperations {
 
   implicit def toRationalizable[A](er: EuclideanRing[A]): RationalizeAbleEuclideanRing[A] = new RationalizeAbleEuclideanRing[A] {
@@ -15,6 +18,10 @@ object QuotientOperations {
 
     implicit def domain: EuclideanRing[A]
 
+    /**
+      * Creates the field of RationalExpressions (quotients) of elements of the EuclideanRing.
+      * @return
+      */
     def quotientField: Field[RationalExpression[A, EuclideanRing[A]]] = new Field[RationalExpression[A, EuclideanRing[A]]] {
 
       override def zero: RationalExpression[A, EuclideanRing[A]] = RationalExpression(domain.zero, domain.one)

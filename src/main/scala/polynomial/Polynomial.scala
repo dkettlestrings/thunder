@@ -2,7 +2,13 @@ package polynomial
 
 import algebra.ring.CommutativeRing
 
-// coefficients(i) is the coefficient for the i_th degree term
+/**
+  * Just a Polynomial.
+  *
+  * @param param
+  * @param coefficients coefficients(i) is the coefficient for the i_th degree term
+  * @tparam A
+  */
 case class Polynomial[A](param: FormalParameter, coefficients: List[A]) {
 
   def +(other: Polynomial[A])(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.plus(this, other)

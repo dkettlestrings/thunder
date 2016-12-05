@@ -1,5 +1,10 @@
 package polynomial
 
+/**
+  * A formal variable such as X, Y, Z, etc.
+  *
+  * A FormalParameter represents an unknown value (a variable) usually within the context of a Polynomial.
+  */
 trait FormalParameter {
 
   def name: String

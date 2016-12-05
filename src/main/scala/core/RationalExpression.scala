@@ -2,6 +2,13 @@ package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
 
+//TODO: Can I get rid of the second type parameter?  I think so.
+/**
+  * A quotient of elements from a EuclideanRing.
+  *
+  * @tparam A
+  * @tparam B
+  */
 trait RationalExpression[A, B <: EuclideanRing[A]] extends EquivalenceClass[(A, A)] {
 
   def domain: B
@@ -10,6 +17,13 @@ trait RationalExpression[A, B <: EuclideanRing[A]] extends EquivalenceClass[(A, 
 
   def denominator: A
 
+  /**
+    * Checks that two RationalExpressions are representationally equivalent (same numerator and denomiator)
+    *
+    * If you want algebraic equility (they represent the same value in the field of quotients), use ==.
+    * @param that
+    * @return
+    */
   def ===(that: RationalExpression[A, B]): Boolean = this.numerator == that.numerator && this.denominator == that.denominator
 
   def !==(that: RationalExpression[A, B]): Boolean = !(this === that)

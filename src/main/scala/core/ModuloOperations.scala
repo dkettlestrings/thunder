@@ -4,6 +4,9 @@ import algebra.ring.{CommutativeRing, EuclideanRing, Field}
 
 import language.implicitConversions
 
+/**
+  * Adds modding operations to EuclideanRings.
+  */
 object ModuloOperations {
 
   implicit def toModdable[A](er: EuclideanRing[A]): ModdableEuclideanRing[A] = new ModdableEuclideanRing[A] {
@@ -15,6 +18,13 @@ object ModuloOperations {
 
     implicit def domain: EuclideanRing[A]
 
+    /**
+      * Mods the EuclideanRing by the element a and returns a CommutativeRing.
+      *
+      * Use this operation when modding out by a reducible (non-irreducible) element.
+      * @param a
+      * @return
+      */
     def modulo_r(a: A): CommutativeRing[ResidueClass[A]] = new CommutativeRing[ResidueClass[A]] {
 
       override def one: ResidueClass[A] = ResidueClass(domain.one, a)
@@ -34,7 +44,17 @@ object ModuloOperations {
       }
     }
 
-    //TODO: reuse code above
+    //TODO: reuse code above like in PolynomialRingOps
+    /**
+      * Mods the EuclideanRing by the element a and returns a Field.
+      *
+      * Use this operation when modding out by an irreducible element.  For performance reasons, this operation does
+      * not check that criterion, it is up to the user to ensure this requirement.  If this requirement is not met,
+      * you may get runtime errors.
+      * @param a
+      * @param context
+      * @return
+      */
     def modulo_f(a: A)(implicit context: EuclideanRingModdingContext[A]): Field[ResidueClass[A]] = new Field[ResidueClass[A]] {
 
       override def one: ResidueClass[A] = ResidueClass(domain.one, a)

@@ -6,6 +6,9 @@ import PolynomialOps._
 import language.implicitConversions
 import scala.annotation.tailrec
 
+/**
+  * Adds the ability to adjoning a FormalParameter to create a ring of Polynomials.
+  */
 object AdjoiningOperations {
 
   implicit def toAdjoinableCommutativeRing[A](r: CommutativeRing[A]): AdjoinableCommutativeRing[A] = new AdjoinableCommutativeRing[A] {
@@ -20,6 +23,13 @@ object AdjoiningOperations {
 
     def domain: CommutativeRing[A]
 
+    /**
+      * Create a CommutativeRing of Polynomials with coefficients in the original CommutativeRing.
+      *
+      * Use this operation on CommutativeRings.
+      * @param p
+      * @return
+      */
     def r_adjoin(p: FormalParameter): CommutativeRing[Polynomial[A]]= new CommutativeRing[Polynomial[A]] with PolynomialRingOps[A] {
 
       override def coefficientRing: CommutativeRing[A] = domain
@@ -33,6 +43,13 @@ object AdjoiningOperations {
 
     implicit def field: Field[A]
 
+    /**
+      * Create a EuclideanRing of polynomials with coefficients in the original Field.
+      *
+      * Use this operation on Fields.
+      * @param p
+      * @return
+      */
     def f_adjoin(p: FormalParameter): EuclideanRing[Polynomial[A]] = new EuclideanRing[Polynomial[A]] with PolynomialRingOps[A] {
 
       override def coefficientRing: CommutativeRing[A] = field

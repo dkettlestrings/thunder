@@ -1,5 +1,8 @@
 package core
 
+/**
+  * The integers along with positive and negative infinity.
+  */
 sealed trait ExtendedInteger extends Ordered[ExtendedInteger] {
 
   def +(ei: ExtendedInteger): ExtendedInteger
