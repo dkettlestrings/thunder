@@ -19,6 +19,11 @@ class RationalExpressionTest extends FunSuite with Matchers {
     RationalExpression(2, 3) != RationalExpression(4, 6) should be (false)
   }
 
+  test("Equality checks for compatible types") {
+
+    RationalExpression(2, 1) != 2 should be (true)
+  }
+
   test("Use === for testing representational equality") {
 
     RationalExpression(2, 3) === RationalExpression(2, 3) should be (true)

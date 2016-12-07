@@ -2,6 +2,8 @@ package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
 
+import scala.util.{Failure, Success, Try}
+
 /**
   * A quotient of elements from a EuclideanRing.
   *
@@ -50,6 +52,14 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
       val (num2, denom2) = y
 
       domain.times(num1, denom2) == domain.times(denom1, num2)
+    }
+  }
+
+  override def equals(obj: scala.Any): Boolean = {
+
+    Try(obj.asInstanceOf[RationalExpression[A]]) match {
+      case Success(re) => this.relation.areEquivalent(this.representative, re.representative)
+      case Failure(throwable) => false
     }
   }
 }
