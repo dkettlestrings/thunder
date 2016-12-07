@@ -7,12 +7,12 @@ import algebra.ring.CommutativeRing
 import language.implicitConversions
 
 /**
-  * A collection of convenient operations for creating and operating on, polynomials.
+  * A collection of convenient operations for creating and operating on, [[Polynomial]]s.
   */
 object PolynomialOps {
 
   /**
-    * Creates a polynomial from a variable number of coefficients.
+    * Creates a [[Polynomial]] from a variable number of coefficients.
     *
     * Note that when using this method, coefficients are expected in decreasing order by degree.  That is,
     * for 2 * (X ** 2) + X + 7 we would do polynomial(2, 1, 7).
@@ -36,10 +36,10 @@ object PolynomialOps {
     def p: Polynomial[A]
 
     /**
-      * The degree of the polynomial.
+      * The degree of the [[Polynomial]].
       *
       * The degree is defined as the largest exponent attached to a non-zero coefficient.  If all coefficients are zero
-      * (i.e. when it is the zero polynomial), NegativeInfinity is returned.
+      * (i.e. when it is the zero [[Polynomial]]), [[core.NegativeInfinity]] is returned.
       * @param coefficientRing
       * @return
       */
@@ -54,7 +54,7 @@ object PolynomialOps {
     /**
       * The coefficient attached to the highest-degree term.
       *
-      * This value is guaranteed to be zero (in the ring of coefficients) if and only if the polynomial is the zero
+      * This value is guaranteed to be zero (in the ring of coefficients) if and only if the [[Polynomial]] is the zero
       * polynomial.
       * @param coefficientRing
       * @return

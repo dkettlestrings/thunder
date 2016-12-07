@@ -20,19 +20,19 @@ object IntegerModding {
     * @param n
     * @return
     */
-  def IntegersMod(n: Int): CommutativeRing[ResidueClass[Int]] = Integers() modulo_r n
+  def IntegersMod(n: Int): CommutativeRing[ResidueClass[Int]] = integers modulo_r n
 
   /**
     * Creates the Field of integers modulo p.
     * @param p
     * @return
     */
-  def PrimeField(p: Int): Field[ResidueClass[Int]] = Integers() modulo_f p
+  def PrimeField(p: Int): Field[ResidueClass[Int]] = integers modulo_f p
 
   /**
-    * Allows for the conversion of integers to ResidueClasses.
+    * Allows for the conversion of integers to [[ResidueClass]]es.
     *
-    * The primary purpose of this function is to allow for conversions of Ints to ResidueClasses.
+    * The primary purpose of this function is to allow for conversions of Ints to [[ResidueClass]]es.
     * Example:
     *
     * val intsMod4 = IntegersMod(4)

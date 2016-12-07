@@ -2,6 +2,9 @@ package core
 
 /**
   * The integers along with positive and negative infinity.
+  *
+  * Take care when doing arithmetic on these values.  Operations of the form [[PositiveInfinity]] - [[PositiveInfinity]]
+  * (or similar) will result in ArithmeticExceptions.
   */
 sealed trait ExtendedInteger extends Ordered[ExtendedInteger] {
 
@@ -9,7 +12,6 @@ sealed trait ExtendedInteger extends Ordered[ExtendedInteger] {
 
   def -(ei: ExtendedInteger): ExtendedInteger
 
-  //TODO: Allow for implicit conversion to ints
   def toInt: Int = this match {
     case FiniteInteger(a) => a
     case _ => throw new ArithmeticException("Cannot convert infinite values to Int")

@@ -6,7 +6,7 @@ import org.scalatest.{FunSuite, Matchers}
 
 class IntegersModNTest extends FunSuite with Matchers {
 
-  implicit def intsMod4 = Integers() modulo_r 4
+  implicit def intsMod4 = integers modulo_r 4
   def classOf = intToResidueClass(4)
 
   val zero = classOf(0)

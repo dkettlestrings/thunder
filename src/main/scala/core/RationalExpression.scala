@@ -2,16 +2,16 @@ package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
 
-//TODO: Can I get rid of the second type parameter?  I think so.
 /**
   * A quotient of elements from a EuclideanRing.
   *
+  * Think of it as a fraction.
+  *
   * @tparam A
-  * @tparam B
   */
-trait RationalExpression[A, B <: EuclideanRing[A]] extends EquivalenceClass[(A, A)] {
+trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
 
-  def domain: B
+  def domain: EuclideanRing[A]
 
   def numerator: A
 
@@ -24,21 +24,21 @@ trait RationalExpression[A, B <: EuclideanRing[A]] extends EquivalenceClass[(A, 
     * @param that
     * @return
     */
-  def ===(that: RationalExpression[A, B]): Boolean = this.numerator == that.numerator && this.denominator == that.denominator
+  def ===(that: RationalExpression[A]): Boolean = this.numerator == that.numerator && this.denominator == that.denominator
 
-  def !==(that: RationalExpression[A, B]): Boolean = !(this === that)
+  def !==(that: RationalExpression[A]): Boolean = !(this === that)
 
-  def +(that: RationalExpression[A, B])(implicit ring: CommutativeRing[RationalExpression[A, B]]): RationalExpression[A, B] = ring.plus(this, that)
+  def +(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.plus(this, that)
 
-  def -(that: RationalExpression[A, B])(implicit ring: CommutativeRing[RationalExpression[A, B]]): RationalExpression[A, B] = ring.minus(this, that)
+  def -(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.minus(this, that)
 
-  def *(that: RationalExpression[A, B])(implicit ring: CommutativeRing[RationalExpression[A, B]]): RationalExpression[A, B] = ring.times(this, that)
+  def *(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.times(this, that)
 
-  def ^(exp: Int)(implicit ring: CommutativeRing[RationalExpression[A, B]]): RationalExpression[A, B] = ring.pow(this, exp)
+  def ^(exp: Int)(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.pow(this, exp)
 
-  def negate(implicit ring: CommutativeRing[RationalExpression[A, B]]): RationalExpression[A, B] = ring.negate(this)
+  def negate(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.negate(this)
 
-  def /(that: RationalExpression[A, B])(implicit field: Field[RationalExpression[A, B]]): RationalExpression[A, B] = field.div(this, that)
+  def /(that: RationalExpression[A])(implicit field: Field[RationalExpression[A]]): RationalExpression[A] = field.div(this, that)
 
   override def representative: (A, A) = (numerator, denominator)
 
@@ -54,11 +54,15 @@ trait RationalExpression[A, B <: EuclideanRing[A]] extends EquivalenceClass[(A, 
   }
 }
 
+
+/**
+  * Companion object for construction.
+  */
 object RationalExpression {
 
-  def apply[A, B <: EuclideanRing[A]](num: A, denom: A)(implicit euclideanRing: B): RationalExpression[A, B] = new RationalExpression[A, B] {
+  def apply[A](num: A, denom: A)(implicit euclideanRing: EuclideanRing[A]): RationalExpression[A] = new RationalExpression[A] {
 
-    override def domain: B = euclideanRing
+    override def domain: EuclideanRing[A]= euclideanRing
 
     override def numerator: A = num
 

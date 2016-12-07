@@ -14,11 +14,13 @@ package core
   */
 trait EquivalenceRelation[A] {
 
-  //TODO: can we implement an equals on equivalence relations?  For a functional implementation, I don't see how.
   def areEquivalent(x: A, y: A): Boolean
 
 }
 
+/**
+  * Companion object for construction.
+  */
 object EquivalenceRelation {
 
   /**

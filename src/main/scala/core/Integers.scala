@@ -2,9 +2,8 @@ package core
 
 import algebra.ring.EuclideanRing
 
-//TODO: Figure out a way to make it so that you can just call Integers instead of Integers() everywhere!
 /**
-  * Creates a EuclideanRing of Ints
+  * Creates a EuclideanRing of Ints.
   */
 object Integers {
 

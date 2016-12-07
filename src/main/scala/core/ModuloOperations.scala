@@ -11,67 +11,43 @@ object ModuloOperations {
 
   implicit def toModdable[A](er: EuclideanRing[A]): ModdableEuclideanRing[A] = new ModdableEuclideanRing[A] {
 
-    override def domain = er
+    override def originalRing = er
   }
 
   trait ModdableEuclideanRing[A] {
 
-    implicit def domain: EuclideanRing[A]
+    implicit def originalRing: EuclideanRing[A]
 
     /**
       * Mods the EuclideanRing by the element a and returns a CommutativeRing.
       *
       * Use this operation when modding out by a reducible (non-irreducible) element.
-      * @param a
+      * @param m
       * @return
       */
-    def modulo_r(a: A): CommutativeRing[ResidueClass[A]] = new CommutativeRing[ResidueClass[A]] {
+    def modulo_r(m: A): CommutativeRing[ResidueClass[A]] = new CommutativeRing[ResidueClass[A]] with ModuloRingOps[A] {
 
-      override def one: ResidueClass[A] = ResidueClass(domain.one, a)
+      override def domain: EuclideanRing[A] = originalRing
 
-      override def times(x: ResidueClass[A], y: ResidueClass[A]): ResidueClass[A] = {
-        require(x.modulus == y.modulus)
-        ResidueClass(domain.times(x.representative, y.representative), a)
-      }
+      override def modulus: A = m
 
-      override def negate(x: ResidueClass[A]): ResidueClass[A] = ResidueClass(domain.negate(x.representative), a)
-
-      override def zero: ResidueClass[A] = ResidueClass(domain.zero, a)
-
-      override def plus(x: ResidueClass[A], y: ResidueClass[A]): ResidueClass[A] = {
-        require(x.modulus == y.modulus)
-        ResidueClass(domain.plus(x.representative, y.representative), a)
-      }
     }
 
-    //TODO: reuse code above like in PolynomialRingOps
     /**
       * Mods the EuclideanRing by the element a and returns a Field.
       *
       * Use this operation when modding out by an irreducible element.  For performance reasons, this operation does
       * not check that criterion, it is up to the user to ensure this requirement.  If this requirement is not met,
       * you may get runtime errors.
-      * @param a
+      * @param m
       * @param context
       * @return
       */
-    def modulo_f(a: A)(implicit context: EuclideanRingModdingContext[A]): Field[ResidueClass[A]] = new Field[ResidueClass[A]] {
+    def modulo_f(m: A)(implicit context: EuclideanRingModdingContext[A]): Field[ResidueClass[A]] = new Field[ResidueClass[A]] with ModuloRingOps[A] {
 
-      override def one: ResidueClass[A] = ResidueClass(domain.one, a)
+      override def domain: EuclideanRing[A] = originalRing
 
-      override def times(x: ResidueClass[A], y: ResidueClass[A]): ResidueClass[A] = {
-        require(x.modulus == y.modulus)
-        ResidueClass(domain.times(x.representative, y.representative), a)
-      }
-
-      override def negate(x: ResidueClass[A]): ResidueClass[A] = ResidueClass(domain.negate(x.representative), a)
-
-      override def zero: ResidueClass[A] = ResidueClass(domain.zero, a)
-
-      override def plus(x: ResidueClass[A], y: ResidueClass[A]): ResidueClass[A] = {
-        require(x.modulus == y.modulus)
-        ResidueClass(domain.plus(x.representative, y.representative), a)
-      }
+      override def modulus: A = m
 
       override def div(x: ResidueClass[A], y: ResidueClass[A]): ResidueClass[A] = {
         require(x.modulus == y.modulus)
