@@ -52,6 +52,20 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
       domain.times(num1, denom2) == domain.times(denom1, num2)
     }
   }
+
+  override def equals(obj: scala.Any): Boolean = {
+
+    val reOption: Option[RationalExpression[A]] = try {
+      Some(obj.asInstanceOf[RationalExpression[A]])
+    } catch {
+      case e: ClassCastException => None
+    }
+    reOption match {
+      case Some(re) => this.relation.areEquivalent(this.representative, re.representative)
+      case None => false
+    }
+
+  }
 }
 
 
