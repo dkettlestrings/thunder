@@ -46,7 +46,7 @@ class QuotientOperationsTest extends FunSuite with Matchers {
 
   test("Exponentiation works as expected") {
 
-    (zero ^ 0) == one should be (true) //TODO: is this the behavior we want?
+    (zero ^ 0) == one should be (true) //TODO: is this the behavior we want? see https://github.com/dkettlestrings/thunder/issues/41
     (zero ^ 8) == zero should be (true)
     (one ^ 5) == one should be (true)
     (half ^ 3) == RationalExpression(1, 8) should be (true)

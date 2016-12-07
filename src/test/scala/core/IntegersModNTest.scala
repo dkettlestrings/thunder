@@ -96,7 +96,7 @@ class IntegersModNTest extends FunSuite with Matchers {
 
   test("Exponentiation works") {
 
-    zero ^ 0 should be (one) // TODO: Is this the behavior we want?
+    zero ^ 0 should be (one) // TODO: Is this the behavior we want? see https://github.com/dkettlestrings/thunder/issues/41
     zero ^ 1 should be (zero)
     zero ^ 2 should be (zero)
     zero ^ 3 should be (zero)

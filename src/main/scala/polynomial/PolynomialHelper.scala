@@ -4,7 +4,7 @@ import algebra.ring.CommutativeRing
 
 import scala.annotation.tailrec
 
-//TODO: Investigate whether this logic can be simplified or moved
+//TODO: Investigate whether this logic can be simplified or moved https://github.com/dkettlestrings/thunder/issues/42
 /**
   * Grab-bag object for assorted operations on [[Polynomial]]s.
   *
