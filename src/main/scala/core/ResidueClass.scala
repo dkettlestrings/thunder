@@ -31,7 +31,7 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
   def /(other: ResidueClass[A])(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(this, other)
 
   def inv(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(field.one, this)
-
+  
   override def equals(obj: scala.Any): Boolean = {
 
     Try(obj.asInstanceOf[ResidueClass[A]]) match {
