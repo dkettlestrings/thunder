@@ -11,7 +11,7 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
 
   test("You can create a polynomial ring over the integers") {
 
-    implicit val polyRing = Integers() r_adjoin X
+    implicit val polyRing = integers r_adjoin X
 
     polynomial(0) should be (polyRing.zero)
     polynomial(2, 3, 1) + polynomial(2, -1) should be (polynomial(2, 5, 0))

@@ -5,7 +5,7 @@ import PolynomialHelper._
 
 import language.postfixOps
 
-trait PolynomialRingOps[A] {
+private [polynomial] trait PolynomialRingOps[A] {
 
   def coefficientRing: CommutativeRing[A]
 

@@ -7,7 +7,7 @@ import org.scalatest.{FunSuite, Matchers}
 class IntegersModPTest extends FunSuite with Matchers {
 
   implicit def context = CommonEuclideanModdingContexts.IntegerModdingContext
-  implicit def intsMod3 = Integers() modulo_f 3
+  implicit def intsMod3 = integers modulo_f 3
   def classOf = intToResidueClass(3)
 
   val zero = classOf(0)
@@ -53,7 +53,7 @@ class IntegersModPTest extends FunSuite with Matchers {
 
   test("Doing a mod to create a field with a non-irreducible element gives runtime errors") {
 
-    val intsMod4 = Integers() modulo_f 4
+    val intsMod4 = integers modulo_f 4
     val one_4 = intsMod4.one
     val two_4 = intsMod4.plus(one, one)
 

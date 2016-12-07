@@ -5,7 +5,13 @@ import algebra.ring.CommutativeRing
 import scala.annotation.tailrec
 
 //TODO: Investigate whether this logic can be simplified or moved
-object PolynomialHelper {
+/**
+  * Grab-bag object for assorted operations on [[Polynomial]]s.
+  *
+  * The unifying theme of the functions in this object is that they all do low-level, implementation-specific operations
+  * on [[Polynomial]]s.
+  */
+private[polynomial] object PolynomialHelper {
 
   @tailrec
   def trimLeadingZeros[A](a: List[A], ring: CommutativeRing[A]): List[A] = {

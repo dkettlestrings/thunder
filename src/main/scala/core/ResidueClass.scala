@@ -2,6 +2,18 @@ package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
 
+//TODO: override equals since we can do "function equality" by inspecting the modulus.
+/**
+  * An equivalence class of elements from a EuclideanRing produced by modding out by an element.
+  *
+  * A ResidueClass is a specialized [[EquivalenceClass]] for capturing the result of modding a
+  * EuclideanRing by an element.  An important note here is that due to this extra constraint, we can
+  * get better equality than in the basic [[EquivalenceClass]].  For a basic [[EquivalenceClass]], there is
+  * no ability to check whether the [[EquivalenceRelation]]s are the same, but for ResidueClasses, we can simply
+  * check the modulus.
+  *
+  * @tparam A
+  */
 trait ResidueClass[A] extends EquivalenceClass[A] {
 
   def modulus: A
@@ -22,6 +34,9 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
 
 }
 
+/**
+  * Companion object for construction.
+  */
 object ResidueClass {
 
   def apply[A](residue: A, mod: A)(implicit domain: EuclideanRing[A]): ResidueClass[A] = new ResidueClass[A] {
