@@ -1,8 +1,8 @@
 package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
+import scala.util.{Try, Success, Failure}
 
-//TODO: override equals since we can do "function equality" by inspecting the modulus.
 /**
   * An equivalence class of elements from a EuclideanRing produced by modding out by an element.
   *
@@ -31,6 +31,14 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
   def /(other: ResidueClass[A])(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(this, other)
 
   def inv(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(field.one, this)
+
+  override def equals(obj: scala.Any): Boolean = {
+
+    Try(obj.asInstanceOf[ResidueClass[A]]) match {
+      case Success(rc) => this.modulus == rc.modulus && this.contains(rc.representative)
+      case Failure(throwable) => false
+    }
+  }
 
 }
 

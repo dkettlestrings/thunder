@@ -23,26 +23,6 @@ trait EquivalenceClass[A] {
     */
   def contains(a: A): Boolean = relation.areEquivalent(representative, a)
 
-  /**
-    * Determines whether the EquivalenceClasses are equal.
-    *
-    * This is done by checking whether each EquivalenceClass contains the representative element of the other.  Note
-    * that this check is somewhat unsafe since it does not check whether the two [[EquivalenceRelation]]s are the same.
-    * This shortcoming is due to the fact that it would require equality checks for functions.  This shortcoming is
-    * overcome in certain subtypes such as [[ResidueClass]].
-    * @param eq
-    * @return
-    */
-  def ==(eq: EquivalenceClass[A]): Boolean = this.contains(eq.representative) && eq.contains(this.representative)
-
-  def !=(eq: EquivalenceClass[A]): Boolean = !(this == eq)
-
-  //TODO: Is this implementation really correct?
-  override def equals(obj: scala.Any): Boolean = obj match {
-    case eq: EquivalenceClass[A] => this == eq
-    case _ => false
-  }
-
 }
 
 /**
