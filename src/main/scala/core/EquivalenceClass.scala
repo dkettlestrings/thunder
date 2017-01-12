@@ -1,7 +1,7 @@
 package core
 
 /**
-  * The set of all elements of type A that are equivalent under some EquivalenceRelation.
+  * The set of all elements of type A that are equivalent under some [[EquivalenceRelation]].
   *
   * Given a particular [[EquivalenceRelation]], the set of EquivalenceClasses form a partition for the elements of A.
   * @tparam A

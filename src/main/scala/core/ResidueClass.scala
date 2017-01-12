@@ -24,6 +24,15 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
 
   def *(other: ResidueClass[A])(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.times(this, other)
 
+  /**
+    * Exponentiation (repeated multiplication) operator.
+    *
+    * Note that this implementation adopts the convention of if z is the zero element, z^0 == 0.
+    *
+    * @param exp
+    * @param ring
+    * @return
+    */
   def ^(exp: Int)(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.pow(this, exp)
 
   def negate(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.negate(this)
@@ -31,7 +40,8 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
   def /(other: ResidueClass[A])(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(this, other)
 
   def inv(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(field.one, this)
-  
+
+  //TODO: Create some kind of Equalable trait to wrap the type checking.  This would be used in many places.  See https://github.com/dkettlestrings/thunder/issues/46
   override def equals(obj: scala.Any): Boolean = {
 
     Try(obj.asInstanceOf[ResidueClass[A]]) match {
@@ -39,6 +49,8 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
       case Failure(throwable) => false
     }
   }
+
+  override def toString: String = s"[$representative]_$modulus"
 
 }
 

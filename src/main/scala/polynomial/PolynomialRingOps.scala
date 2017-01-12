@@ -1,40 +1,63 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
-import PolynomialHelper._
-
-import language.postfixOps
 
 private [polynomial] trait PolynomialRingOps[A] {
 
-  def coefficientRing: CommutativeRing[A]
+  implicit def coefficientRing: CommutativeRing[A]
 
-  def param: FormalParameter
+  implicit def param: FormalParameter
 
-  def polynomial(xa: A*): Polynomial[A] = polynomialFromList(xa.reverse.toList)
+  def zero: Polynomial[A] = Polynomial[A](param, coefficientRing.zero)
 
-  def negate(x: Polynomial[A]): Polynomial[A] = polynomialFromList(listNegate(x.coefficients))
+  def one: Polynomial[A] = Polynomial[A](param, coefficientRing.one)
 
-  def zero: Polynomial[A] = polynomial(coefficientRing.zero)
+  def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {
 
-  def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = polynomialFromList(listPlus(x.coefficients, y.coefficients))
+    if (x == zero) y
+    else if (y == zero) x
+    else {
 
-  def one: Polynomial[A] = polynomial(coefficientRing.one)
+      val sumsOfCoefficients = for {
+
+        d <- 0 to List(x.degree.toInt, y.degree.toInt).max
+        c1 = x.coefficient(d)
+        c2 = y.coefficient(d)
+      } yield coefficientRing.plus(c1.getOrElse(coefficientRing.zero), c2.getOrElse(coefficientRing.zero))
+
+      Polynomial(param, sumsOfCoefficients.toList.reverse)
+
+    }
+  }
+
+  def negate(x: Polynomial[A]): Polynomial[A] = {
+    if (x == zero) zero
+    else {
+      val negatedCoefficients = for {
+
+        d <- 0 to x.degree.toInt
+        coefficient = x.coefficient(d)
+      } yield coefficientRing.negate(coefficient.get)
+
+      Polynomial(param, negatedCoefficients.toList.reverse)
+    }
+  }
 
   def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {
 
-    val xWithIndex: List[(A, Int)] = x.coefficients zipWithIndex
-    val termsOfXMultipliedByY: List[Polynomial[A]] = xWithIndex.map({case (a, i) =>
-      polynomialFromList(mapCoefficientsAndExtend(a, i, y.coefficients, coefficientRing))
-    })
+    if (x == zero || y == zero) zero
+    else {
 
-    termsOfXMultipliedByY.fold(zero)(plus)
+      val terms = for {
+
+        d1 <- 0 to x.degree.toInt
+        d2 <- 0 to y.degree.toInt
+
+        c1 = x.coefficient(d1)
+        c2 = y.coefficient(d2)
+      } yield Polynomial[A](param, coefficientRing.times(c1.get, c2.get) :: List.fill(d1 + d2)(coefficientRing.zero))
+
+      terms.foldLeft(zero)(plus)
+    }
   }
-
-  private def polynomialFromList(coefficients: List[A]): Polynomial[A] = Polynomial[A](param, trimLeadingZeros(coefficients, coefficientRing))
-
-  private def listPlus(x: List[A], y: List[A]): List[A] = pairwiseBinaryListOp(coefficientRing.plus, coefficientRing.zero)(x, y)
-
-  private def listNegate(x: List[A]): List[A] = x map coefficientRing.negate
-
 }
