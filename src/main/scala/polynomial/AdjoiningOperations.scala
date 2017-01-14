@@ -1,7 +1,6 @@
 package polynomial
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-import PolynomialOps._
 
 import language.implicitConversions
 import scala.annotation.tailrec
@@ -57,7 +56,6 @@ object AdjoiningOperations {
       override def param: FormalParameter = p
 
       implicit val underlyingPolynomialRing = field r_adjoin p
-      implicit val ringOps = underlyingPolynomialRing.asInstanceOf[PolynomialRingOps[A]]
 
       override def quot(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {
 
@@ -67,8 +65,8 @@ object AdjoiningOperations {
           else {
             val leadingCoefficient = field.div(a.leadingCoefficient, b.leadingCoefficient)
             val degreeDifference = a.degree - b.degree
-            val xToTheN = polynomial(field.one, field.zero) ^ degreeDifference.toInt // X^(degreeDifference)
-            val newQuot = xToTheN * polynomial(leadingCoefficient)
+            val xToTheN = Polynomial[A](param, field.one, field.zero) ^ degreeDifference.toInt // X^(degreeDifference)
+            val newQuot = xToTheN * Polynomial[A](param, leadingCoefficient)
             val reducedA = a - (newQuot * b)
             go(reducedA, b, acc + newQuot)
           }

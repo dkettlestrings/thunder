@@ -1,4 +1,4 @@
-package core
+package polynomial
 
 /**
   * The integers along with positive and negative infinity.

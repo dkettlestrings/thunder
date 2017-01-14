@@ -1,4 +1,4 @@
-package core
+package polynomial
 
 import org.scalatest.{FunSuite, Matchers}
 

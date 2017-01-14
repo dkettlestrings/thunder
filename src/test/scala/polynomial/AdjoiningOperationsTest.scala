@@ -4,7 +4,6 @@ import core.IntegerModding._
 import core.Integers
 import org.scalatest.{FunSuite, Matchers}
 import AdjoiningOperations._
-import PolynomialOps._
 import Predef.X
 
 class AdjoiningOperationsTest extends FunSuite with Matchers {
@@ -13,8 +12,12 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
 
     implicit val polyRing = integers r_adjoin X
 
-    polynomial(0) should be (polyRing.zero)
-    polynomial(2, 3, 1) + polynomial(2, -1) should be (polynomial(2, 5, 0))
+    val a = Polynomial(2, 3, 1) + Polynomial(2, -1)
+    val b = Polynomial(2, 3, 1)
+    val c = Polynomial(2, -1)
+
+    Polynomial(0) should be (polyRing.zero)
+    Polynomial(2, 3, 1) + Polynomial(2, -1) should be (Polynomial(2, 5, 0))
   }
 
   test("You can create a polynomial over the integers modulo n") {
@@ -29,8 +32,8 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
     val five = classOf(5)
 
 
-    polynomial(zero) should be (polyRing.zero)
-    polynomial(one, three, one) + polynomial(three, five, zero) should be (polynomial(one))
+    Polynomial(zero) should be (polyRing.zero)
+    Polynomial(one, three, one) + Polynomial(three, five, zero) should be (Polynomial(one))
 
     //It ss just a PolynomialRing, not a PolynomialRingOverField, so it does not have quot for example
     assertDoesNotCompile("polyRing.quot(polyRing.one, polyRing.one)")
@@ -47,8 +50,8 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
     val two = classOf(2)
     val three = classOf(3)
 
-    polynomial(zero) should be (polyRing.zero)
-    polynomial(one, three, one) + polynomial(two, three, zero) should be (polynomial(one))
+    Polynomial(zero) should be (polyRing.zero)
+    Polynomial(one, three, one) + Polynomial(two, three, zero) should be (Polynomial(one))
 
     //Now we have a field for the coefficients, so we should have quot
     polyRing.quot(polyRing.one, polyRing.one) should be (polyRing.one)

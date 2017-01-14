@@ -9,3 +9,5 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats" % "0.7.2",
   "org.typelevel" %% "algebra" % "0.5.1"
 )
+
+scalacOptions += "-feature"

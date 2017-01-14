@@ -1,11 +1,9 @@
 package polynomial
 
 import core.IntegerModding._
-import core.NegativeInfinity
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.AdjoiningOperations._
 import polynomial.Predef.X
-import PolynomialOps._
 
 class PolynomialRingTest extends FunSuite with Matchers {
 
@@ -18,76 +16,56 @@ class PolynomialRingTest extends FunSuite with Matchers {
   val two = classOf(2)
   val three = classOf(3)
 
-  test("Leading zero coefficients are ignored") {
 
-    polynomial(one, two, zero, three) should be (polynomial(zero, zero, one, two, zero, three))
-  }
+  // Note that this really belongs in PolynomialTest, but it is simply easier to write the test here.
+  test("Polynomials defined over different formal parameters are never equal") {
 
-  test("The leading coefficient is zero only for the zero polynomial") {
+    import polynomial.Predef.Y
+    val polyRing2 = intsMod4 r_adjoin Y
 
-    val poly1 = polynomial(one, two, three)
-    val poly2 = polynomial(zero, two, three, three)
-
-    poly1.leadingCoefficient should be (one)
-    poly2.leadingCoefficient should be (two)
-    polyRing.zero.leadingCoefficient should be (zero)
-  }
-
-  test("The degree function works as expected, but you have to use the extended integers (so you can get negative infinity)") {
-
-    polynomial(two, two, zero, one).degree.toInt should be (3)
-    polynomial(zero, two, two, zero, one).degree.toInt should be (3)
-
-    polynomial(three, two, one).degree.toInt should be (2)
-    polynomial(two, one).degree.toInt should be (1)
-    polynomial(three).degree.toInt should be (0)
-  }
-
-  test("By convention, the degree of the zero polynomial is defined as negative infinity") {
-
-    polyRing.zero.degree should be (NegativeInfinity)
+    polyRing.zero == polyRing2.zero should be (false)
   }
 
   test("Addition works") {
 
-    polynomial(three) + polynomial(two) should be (polynomial(one))
-    polynomial(one, three) + polynomial(two) should be (polynomial(one, one))
-    polynomial(two, three) + polynomial(two, two) should be (polynomial(one))
-    polynomial(three, zero) + polyRing.zero should be (polynomial(three, zero))
+    Polynomial(three) + Polynomial(two) should be (Polynomial(one))
+    Polynomial(one, three) + Polynomial(two) should be (Polynomial(one, one))
+    Polynomial(two, three) + Polynomial(two, two) should be (Polynomial(one))
+    Polynomial(three, zero) + polyRing.zero should be (Polynomial(three, zero))
   }
 
   test("Subtraction works") {
 
-    polynomial(three) - polynomial(two) should be (polynomial(one))
-    polynomial(one, two) - polynomial(three) should be (polynomial(one, three))
-    polynomial(two, three) - polynomial(two, two) should be (polynomial(one))
-    polynomial(three, zero) - polyRing.zero should be (polynomial(three, zero))
+    Polynomial(three) - Polynomial(two) should be (Polynomial(one))
+    Polynomial(one, two) - Polynomial(three) should be (Polynomial(one, three))
+    Polynomial(two, three) - Polynomial(two, two) should be (Polynomial(one))
+    Polynomial(three, zero) - polyRing.zero should be (Polynomial(three, zero))
   }
 
   test("Multiplication works") {
 
-    polynomial(three) * polynomial(two) should be (polynomial(two))
-    polynomial(one, two) * polynomial(three) should be (polynomial(three, two))
-    polynomial(one, three, two) * polynomial(three, one) should be (polynomial(three, two, one, two))
-    polynomial(one, two, three) * polyRing.zero should be (polyRing.zero)
+    Polynomial(three) * Polynomial(two) should be (Polynomial(two))
+    Polynomial(one, two) * Polynomial(three) should be (Polynomial(three, two))
+    Polynomial(one, three, two) * Polynomial(three, one) should be (Polynomial(three, two, one, two))
+    Polynomial(one, two, three) * polyRing.zero should be (polyRing.zero)
   }
 
   test("Exponentiation works") {
 
-    polynomial(one, three) ^ 0 should be (polyRing.one)
-    polynomial(one, three) ^ 1 should be (polynomial(one, three))
-    polynomial(one, three) ^ 2 should be (polynomial(one, two, one))
-    polynomial(one, three) ^ 3 should be (polynomial(one, one, three, three))
+    Polynomial(one, three) ^ 0 should be (polyRing.one)
+    Polynomial(one, three) ^ 1 should be (Polynomial(one, three))
+    Polynomial(one, three) ^ 2 should be (Polynomial(one, two, one))
+    Polynomial(one, three) ^ 3 should be (Polynomial(one, one, three, three))
   }
 
   test("Negation works") {
 
-    polynomial(one, three, three).negate should be (polynomial(three, one, one))
+    Polynomial(one, three, three).negate should be (Polynomial(three, one, one))
   }
 
   test("The ring has zero and one") {
 
-    polyRing.zero should be (polynomial(zero))
-    polyRing.one should be (polynomial(one))
+    polyRing.zero should be (Polynomial(zero))
+    polyRing.one should be (Polynomial(one))
   }
 }

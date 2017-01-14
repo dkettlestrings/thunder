@@ -36,6 +36,15 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
 
   def *(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.times(this, that)
 
+  /**
+    * Exponentiation (repeated multiplication) operator.
+    *
+    * Note that this implementation adopts the convention of if z is the zero element, z^0 == 0.
+    *
+    * @param exp
+    * @param ring
+    * @return
+    */
   def ^(exp: Int)(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.pow(this, exp)
 
   def negate(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.negate(this)
@@ -55,6 +64,7 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
     }
   }
 
+  //TODO: Create some kind of Equalable trait to wrap the type checking.  This would be used in many places.  See https://github.com/dkettlestrings/thunder/issues/46
   override def equals(obj: scala.Any): Boolean = {
 
     Try(obj.asInstanceOf[RationalExpression[A]]) match {
