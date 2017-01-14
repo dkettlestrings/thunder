@@ -12,11 +12,11 @@ private [polynomial] trait PolynomialRingOps[A] {
 
   def one: Polynomial[A] = Polynomial[A](param, coefficientRing.one)
 
-  def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {
+  def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = (x, y) match {
 
-    if (x == zero) y
-    else if (y == zero) x
-    else {
+    case (x, z) if z == zero => x
+    case (z, y) if z == zero => y
+    case _ => {
 
       val sumsOfCoefficients = for {
 
@@ -30,9 +30,10 @@ private [polynomial] trait PolynomialRingOps[A] {
     }
   }
 
-  def negate(x: Polynomial[A]): Polynomial[A] = {
-    if (x == zero) zero
-    else {
+  def negate(x: Polynomial[A]): Polynomial[A] = x match {
+
+    case z if z == zero => zero
+    case _ => {
       val negatedCoefficients = for {
 
         d <- 0 to x.degree.toInt
@@ -43,10 +44,11 @@ private [polynomial] trait PolynomialRingOps[A] {
     }
   }
 
-  def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {
+  def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = (x, y) match {
 
-    if (x == zero || y == zero) zero
-    else {
+    case (x, z) if z == zero => zero
+    case (z, y) if z == zero => zero
+    case _ => {
 
       val terms = for {
 

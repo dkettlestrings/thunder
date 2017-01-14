@@ -109,10 +109,10 @@ trait Polynomial[A] {
       val nonZeroTerms = (coefficients zipWithIndex).filter {case (c, _) => c != coefficientRing.zero}
 
       val termStrings: List[String] = nonZeroTerms map {case (c, d) =>
-        val parameterString = {
-          if (d == 0) ""
-          else if (d == 1) s"$param"
-          else s"$param^$d"
+        val parameterString = d match {
+          case 0 => ""
+          case 1 => s"$param"
+          case _ => s"$param^$d"
         }
         c.toString + parameterString
       }
@@ -142,10 +142,10 @@ trait Polynomial[A] {
   def negate(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.negate(this)
 
   @tailrec
-  private def trimLeadingZeros(a: List[A]): List[A] = {
-    if (a.isEmpty) a
-    else if (a.last == coefficientRing.zero) trimLeadingZeros(a.init)
-    else a
+  private def trimLeadingZeros(a: List[A]): List[A] = a match {
+    case Nil => a
+    case _ :+ last if last == coefficientRing.zero => trimLeadingZeros(a.init)
+    case _ => a
   }
 
   private def biggestKeyWithNonzeroValue(a: List[A]): Option[Int] = {
