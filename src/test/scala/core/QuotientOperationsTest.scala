@@ -1,13 +1,12 @@
 package core
 
-import core.QuotientOperations._
+import IntegerModding.integers
+import QuotientOperations._
 import org.scalatest.{FunSuite, Matchers}
-
 import scala.language.postfixOps
 
 class QuotientOperationsTest extends FunSuite with Matchers {
 
-  implicit val integers = Integers()
   implicit val rationals = integers quotientField
 
   val zero = rationals.zero
@@ -20,7 +19,6 @@ class QuotientOperationsTest extends FunSuite with Matchers {
     zero == RationalExpression(0, 1) should be (true)
     one == RationalExpression(1, 1) should be (true)
   }
-
 
   test("Addition works as expected") {
 

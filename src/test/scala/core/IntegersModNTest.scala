@@ -1,22 +1,22 @@
 package core
 
-import core.ModuloOperations.toModdable
-import IntegerModding._
 import org.scalatest.{FunSuite, Matchers}
 
 class IntegersModNTest extends FunSuite with Matchers {
 
-  implicit def intsMod4 = integers modulo_r 4
-  def classOf = intToResidueClass(4)
+  implicit def intsMod4 = IntegersModN(4)
 
-  val zero = classOf(0)
-  val one = classOf(1)
-  val two = classOf(2)
-  val three = classOf(3)
+  val zero = intsMod4.classOf(0)
+  val one = intsMod4.classOf(1)
+  val two = intsMod4.classOf(2)
+  val three = intsMod4.classOf(3)
+
+  test("Integers modulo a value should have that many elements") {
+
+    intsMod4.elements should be (Set(zero, one, two, three))
+  }
 
   test("Integers modulo a value should be an abelian group under addition") {
-
-    zero == zero
 
     zero + zero should be (zero)
     zero + one should be (one)

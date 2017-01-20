@@ -1,20 +1,62 @@
 package polynomial
 
-import core.IntegerModding._
-import org.scalatest.{FunSuite, Matchers}
-import polynomial.AdjoiningOperations._
+import core.IntegersModP
 import polynomial.Predef.X
+import org.scalatest.{FunSuite, Matchers}
 
 class PolynomialRingOverFieldTest extends FunSuite with Matchers {
 
-  implicit val intsMod5 = PrimeField(5)
-  implicit val polyRing = intsMod5 f_adjoin X
-  def classOf = intToResidueClass(5)
+  implicit val intsMod5 = IntegersModP(5)
+  implicit val polyRing = PolynomialRingOverField(intsMod5, X)
 
-  val one = classOf(1)
-  val two = classOf(2)
-  val three = classOf(3)
-  val four = classOf(4)
+  val zero = intsMod5.classOf(0)
+  val one = intsMod5.classOf(1)
+  val two = intsMod5.classOf(2)
+  val three = intsMod5.classOf(3)
+  val four = intsMod5.classOf(4)
+
+  test("Addition works") {
+
+    Polynomial(three) + Polynomial(four) should be (Polynomial(two))
+    Polynomial(one, three) + Polynomial(three) should be (Polynomial(one, one))
+    Polynomial(two, three) + Polynomial(three, one) should be (Polynomial(four))
+    Polynomial(three, zero) + polyRing.zero should be (Polynomial(three, zero))
+  }
+
+  test("Subtraction works") {
+
+    Polynomial(three) - Polynomial(two) should be (Polynomial(one))
+    Polynomial(one, two) - Polynomial(three) should be (Polynomial(one, four))
+    Polynomial(two, three) - Polynomial(two, two) should be (Polynomial(one))
+    Polynomial(three, zero) - polyRing.zero should be (Polynomial(three, zero))
+  }
+
+  test("Multiplication works") {
+
+    Polynomial(three) * Polynomial(two) should be (Polynomial(one))
+    Polynomial(one, two) * Polynomial(three) should be (Polynomial(three, one))
+    Polynomial(one, three, two) * Polynomial(three, one) should be (Polynomial(three, zero, four, two))
+    Polynomial(one, two, three) * polyRing.zero should be (polyRing.zero)
+  }
+
+  test("Exponentiation works") {
+
+    Polynomial(one, three) ^ 0 should be (polyRing.one)
+    Polynomial(one, three) ^ 1 should be (Polynomial(one, three))
+    Polynomial(one, three) ^ 2 should be (Polynomial(one, one, four))
+    Polynomial(one, three) ^ 3 should be (Polynomial(one, four, two, two))
+  }
+
+  test("Negation works") {
+
+    Polynomial(one, three, three).negate should be (Polynomial(four, two, two))
+  }
+
+  test("A polynomial ring over a field has a zero and a one") {
+
+    polyRing.zero should be (Polynomial(zero))
+    polyRing.one should be (Polynomial(one))
+  }
 
   test("The quotient of a constant divided by a constant is a constant") {
 

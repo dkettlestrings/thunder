@@ -1,10 +1,8 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
-
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
-
 import language.postfixOps
 
 //TODO: coefficient vs. coefficients is confusing. See https://github.com/dkettlestrings/thunder/issues/45

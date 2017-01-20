@@ -10,7 +10,8 @@ package core
   * element are the numbers 1 to p-1.  When working with a polynomial ring modulo an irreducible polynomial p, the
   * possible inverses are all non-zero polynomials of degree <= degree(p).
   *
-  * @tparam A The type of the elements within the EuclideanRing (their type parameters should match)
+  * @tparam A The type of the elements within the EuclideanRing (their type parameters should match).  For example, you
+  *           must use EuclideanRingModdingContext[Foo] when working with a EuclideanRing[Foo]
   */
 trait EuclideanRingModdingContext[A] {
 

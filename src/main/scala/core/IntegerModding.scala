@@ -1,9 +1,6 @@
 package core
 
-import algebra.ring.{CommutativeRing, Field}
-import core.CommonEuclideanModdingContexts.IntegerModdingContext
-import core.ModuloOperations._
-
+//TODO: Find a better home for integers.  See https://github.com/dkettlestrings/thunder/issues/48
 /**
   * Convenience methods for the integers modulo n.
   */
@@ -14,35 +11,5 @@ object IntegerModding {
     * @return
     */
   implicit def integers = Integers()
-
-  /**
-    * Creates the CommutativeRing of integers modulo n.
-    * @param n
-    * @return
-    */
-  def IntegersMod(n: Int): CommutativeRing[ResidueClass[Int]] = integers modulo_r n
-
-  /**
-    * Creates the Field of integers modulo p.
-    * @param p
-    * @return
-    */
-  def PrimeField(p: Int): Field[ResidueClass[Int]] = integers modulo_f p
-
-  /**
-    * Allows for the conversion of integers to [[ResidueClass]]es.
-    *
-    * The primary purpose of this function is to allow for conversions of Ints to [[ResidueClass]]es.
-    * Example:
-    *
-    * val intsMod4 = IntegersMod(4)
-    * def classOf = intToResidueClass(4)
-    * val one = classOf(1)
-    * one + one == classOf(2)
-    *
-    * @param modulus
-    * @return
-    */
-  def intToResidueClass(modulus: Int): Int => ResidueClass[Int] = x => ResidueClass(x, modulus)
 
 }

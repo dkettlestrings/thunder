@@ -1,10 +1,10 @@
 package polynomial
 
-import core.IntegerModding._
-import core.Integers
-import org.scalatest.{FunSuite, Matchers}
+import core.IntegerModding.integers
+import core.{IntegersModN, IntegersModP}
 import AdjoiningOperations._
 import Predef.X
+import org.scalatest.{FunSuite, Matchers}
 
 class AdjoiningOperationsTest extends FunSuite with Matchers {
 
@@ -22,14 +22,13 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
 
   test("You can create a polynomial over the integers modulo n") {
 
-    implicit val intsMod4 = IntegersMod(4)
+    implicit val intsMod4 = IntegersModN(4)
     implicit val polyRing = intsMod4 r_adjoin X
-    def classOf = intToResidueClass(4)
 
-    val zero = classOf(0)
-    val one = classOf(1)
-    val three = classOf(3)
-    val five = classOf(5)
+    val zero = intsMod4.classOf(0)
+    val one = intsMod4.classOf(1)
+    val three = intsMod4.classOf(3)
+    val five = intsMod4.classOf(5)
 
 
     Polynomial(zero) should be (polyRing.zero)
@@ -41,14 +40,13 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
 
   test("You can create a polynomial over the integers modulo p") {
 
-    implicit val intsMod3 = PrimeField(3)
+    implicit val intsMod3 = IntegersModP(3)
     implicit val polyRing = intsMod3 f_adjoin X
-    implicit def classOf = intToResidueClass(3)
 
-    val zero = classOf(0)
-    val one = classOf(1)
-    val two = classOf(2)
-    val three = classOf(3)
+    val zero = intsMod3.classOf(0)
+    val one = intsMod3.classOf(1)
+    val two = intsMod3.classOf(2)
+    val three = intsMod3.classOf(3)
 
     Polynomial(zero) should be (polyRing.zero)
     Polynomial(one, three, one) + Polynomial(two, three, zero) should be (Polynomial(one))

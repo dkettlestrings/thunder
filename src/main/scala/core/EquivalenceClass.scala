@@ -11,7 +11,9 @@ trait EquivalenceClass[A] {
   def relation: EquivalenceRelation[A]
 
   /**
-    * A single element of the EquivalenceClass.
+    * A single, arbitrary element of the EquivalenceClass.
+    *
+    * An [[EquivalenceClass]] makes no guarantees about the particular representative you will get.
     * @return
     */
   def representative: A

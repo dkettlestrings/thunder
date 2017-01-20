@@ -7,6 +7,4 @@
   *
   * 2. Creating quotient fields of EuclideanRings: see ([[core.QuotientOperations]])
   */
-package object core {
-
-}
+package object core

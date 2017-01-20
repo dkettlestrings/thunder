@@ -1,10 +1,9 @@
 package core
 
+import IntegerModding.integers
 import org.scalatest.{FunSuite, Matchers}
 
 class RationalExpressionTest extends FunSuite with Matchers {
-
-  implicit def integers = Integers()
 
   test("Use == for testing \"algebraic\" equality") {
 
@@ -19,6 +18,7 @@ class RationalExpressionTest extends FunSuite with Matchers {
     RationalExpression(2, 3) != RationalExpression(4, 6) should be (false)
   }
 
+  //TODO: suppress compiler warning for equality checking on incompatible types.  See https://github.com/dkettlestrings/thunder/issues/46
   test("Equality checks for compatible types") {
 
     RationalExpression(2, 1) != 2 should be (true)

@@ -1,27 +1,25 @@
 package polynomial
 
-import core.IntegerModding._
-import org.scalatest.{FunSuite, Matchers}
-import polynomial.AdjoiningOperations._
+import core.IntegersModN
 import polynomial.Predef.X
+import org.scalatest.{FunSuite, Matchers}
 
 class PolynomialRingTest extends FunSuite with Matchers {
 
-  implicit val intsMod4 = IntegersMod(4)
-  implicit val polyRing = intsMod4 r_adjoin X
-  def classOf = intToResidueClass(4)
+  implicit val intsMod4 = IntegersModN(4)
+  implicit val polyRing = PolynomialRing(intsMod4, X)
 
-  val zero = classOf(0)
-  val one = classOf(1)
-  val two = classOf(2)
-  val three = classOf(3)
+  val zero = intsMod4.classOf(0)
+  val one = intsMod4.classOf(1)
+  val two = intsMod4.classOf(2)
+  val three = intsMod4.classOf(3)
 
 
   // Note that this really belongs in PolynomialTest, but it is simply easier to write the test here.
   test("Polynomials defined over different formal parameters are never equal") {
 
     import polynomial.Predef.Y
-    val polyRing2 = intsMod4 r_adjoin Y
+    val polyRing2 = PolynomialRing(intsMod4, Y)
 
     polyRing.zero == polyRing2.zero should be (false)
   }

@@ -1,7 +1,6 @@
 package polynomial
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-
 import language.implicitConversions
 import scala.annotation.tailrec
 
