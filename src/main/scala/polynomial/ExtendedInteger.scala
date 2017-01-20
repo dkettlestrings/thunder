@@ -1,5 +1,6 @@
 package polynomial
 
+//TODO: An equals method?  See https://github.com/dkettlestrings/thunder/issues/49
 /**
   * The integers along with positive and negative infinity.
   *

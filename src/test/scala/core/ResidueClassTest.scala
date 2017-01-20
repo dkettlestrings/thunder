@@ -1,10 +1,12 @@
 package core
 
-import org.scalatest.{FunSuite, Matchers}
-import IntegerModding._
+import IntegerModding.integers
 import ModuloOperations._
+import org.scalatest.{FunSuite, Matchers}
 
 class ResidueClassTest extends FunSuite with Matchers {
+
+  def intToResidueClass(modulus: Int): Int => ResidueClass[Int] = x => ResidueClass(x, modulus)
 
   test("Residue class equality holds as expected") {
 
@@ -36,12 +38,20 @@ class ResidueClassTest extends FunSuite with Matchers {
     mod4(2) != mod6(2) should be (true)
   }
 
+  //TODO: suppress compiler warnings for equality checking on incompatible types.  See https://github.com/dkettlestrings/thunder/issues/46
   test("Residue class equality takes types into account") {
 
     implicit def intsMod4 = integers modulo_r 4
     def classOf = intToResidueClass(4)
 
     classOf(2) != 2
+  }
+
+  test("Residue classes are printed in square bracket notation") {
+
+    def intsMod4 = integers modulo_r 4
+    def mod4 = intToResidueClass(4)
+    mod4(3).toString should be ("[3]_4")
   }
 
 }

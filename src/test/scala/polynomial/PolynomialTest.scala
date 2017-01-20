@@ -1,18 +1,17 @@
 package polynomial
 
-import core.IntegerModding._
+import core.IntegersModN
 import polynomial.Predef.X
 import org.scalatest.{FunSuite, Matchers}
 
 class PolynomialTest extends FunSuite with Matchers {
 
-  implicit val intsMod4 = IntegersMod(4)
-  def classOf = intToResidueClass(4)
+  implicit val intsMod4 = IntegersModN(4)
 
-  val zero = classOf(0)
-  val one = classOf(1)
-  val two = classOf(2)
-  val three = classOf(3)
+  val zero = intsMod4.classOf(0)
+  val one = intsMod4.classOf(1)
+  val two = intsMod4.classOf(2)
+  val three = intsMod4.classOf(3)
 
   test("Leading zero coefficients are ignored") {
 
@@ -62,6 +61,7 @@ class PolynomialTest extends FunSuite with Matchers {
     Polynomial(one, two) != Polynomial(two, one) should be (true)
   }
 
+  //TODO: Suppress type check warning on equals.  See https://github.com/dkettlestrings/thunder/issues/46
   test("Polynomial equality checks for type") {
 
     Polynomial(two) == 2 should be (false)

@@ -7,6 +7,4 @@
   *
   * 2. Creating rings of polynomials: (see [[polynomial.AdjoiningOperations]]
   */
-package object polynomial {
-
-}
+package object polynomial

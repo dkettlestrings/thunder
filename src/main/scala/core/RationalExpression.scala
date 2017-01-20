@@ -1,7 +1,6 @@
 package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-
 import scala.util.{Failure, Success, Try}
 
 /**

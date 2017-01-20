@@ -10,7 +10,7 @@ class EquivalenceRelationTest extends FunSuite with Matchers {
 
     relation.areEquivalent(List("a", "b", "c"), List("d", "e", "f")) should be (true)
 
-    relation.areEquivalent(List("a", "b", "c"), List("d", "e")) should be (false)
+    relation.areEquivalent(List("a", "b", "b"), List("a", "b")) should be (false)
   }
 
 }
