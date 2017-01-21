@@ -8,9 +8,7 @@ import core.{FinitelyGenerable, ResidueClass}
   * Describes the Field of the integers modulo a prime.
   *
   */
-trait IntegersModP extends Field[ResidueClass[Int]] with IntegersModN with FinitelyGenerable[ResidueClass[Int]] {
-
-}
+trait IntegersModP extends Field[ResidueClass[Int]] with IntegersModN with FinitelyGenerable[ResidueClass[Int]]
 
 /**
   * Companion object for creating instances.
