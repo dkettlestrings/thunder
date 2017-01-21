@@ -1,11 +1,11 @@
-package core
+package integer
 
 import algebra.ring.EuclideanRing
 
 /**
   * Creates a EuclideanRing of Ints.
   *
-  * It is recommended that you use [[IntegerModding.integers]] as opposed to instantiating your own.
+  * It is recommended that you use [[integer.integers]] as opposed to instantiating your own.
   */
 object Integers {
 

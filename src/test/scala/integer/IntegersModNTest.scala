@@ -1,4 +1,4 @@
-package core
+package integer
 
 import org.scalatest.{FunSuite, Matchers}
 

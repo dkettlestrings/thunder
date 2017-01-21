@@ -1,8 +1,8 @@
-package core
+package integer
 
-import ModuloOperations._
-import IntegerModding.integers
 import algebra.ring.CommutativeRing
+import core.ModuloOperations._
+import core.{FinitelyGenerable, ResidueClass}
 
 /**
   * Describes the CommutativeRing of the integers modulo a number.

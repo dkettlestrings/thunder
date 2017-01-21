@@ -1,5 +1,5 @@
 /**
-  * Core package for integers and basic algebraic operations.
+  * Core package for basic algebraic operations.
   *
   * This package has logic for the following:
   *

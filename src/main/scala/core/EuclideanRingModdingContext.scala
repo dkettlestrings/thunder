@@ -18,19 +18,3 @@ trait EuclideanRingModdingContext[A] {
   def elementsUpTo(a: A): IndexedSeq[A]
 
 }
-
-object CommonEuclideanModdingContexts {
-
-
-  /**
-    * The EuclideanRingModdingContext when creating the integers modulo a prime p.
-    * @return
-    */
-  implicit def IntegerModdingContext: EuclideanRingModdingContext[Int] = {
-
-    new EuclideanRingModdingContext[Int] {
-
-      override def elementsUpTo(a: Int): IndexedSeq[Int] = 1 to a
-    }
-  }
-}

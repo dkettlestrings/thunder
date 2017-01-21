@@ -1,6 +1,6 @@
 package polynomial
 
-import core.IntegersModP
+import integer.IntegersModP
 import polynomial.Predef.X
 import org.scalatest.{FunSuite, Matchers}
 
