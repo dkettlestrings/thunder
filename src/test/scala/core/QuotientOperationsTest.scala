@@ -1,6 +1,6 @@
 package core
 
-import IntegerModding.integers
+import integer.integers
 import QuotientOperations._
 import org.scalatest.{FunSuite, Matchers}
 import scala.language.postfixOps

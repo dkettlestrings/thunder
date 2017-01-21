@@ -1,9 +1,8 @@
-package core
+package integer
 
-import ModuloOperations._
-import IntegerModding.integers
-import CommonEuclideanModdingContexts.IntegerModdingContext
 import algebra.ring.Field
+import core.ModuloOperations._
+import core.{FinitelyGenerable, ResidueClass}
 
 /**
   * Describes the Field of the integers modulo a prime.

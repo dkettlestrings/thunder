@@ -1,6 +1,6 @@
 package core
 
-import IntegerModding.integers
+import integer.integers
 import org.scalatest.{FunSuite, Matchers}
 
 class RationalExpressionTest extends FunSuite with Matchers {
