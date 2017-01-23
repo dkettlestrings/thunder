@@ -61,9 +61,9 @@ object ResidueClass {
 
   def apply[A](residue: A, mod: A)(implicit domain: EuclideanRing[A]): ResidueClass[A] = new ResidueClass[A] {
 
-    override def modulus: A = mod
+    override val modulus: A = mod
 
-    override def representative: A = residue
+    override val representative: A = domain.mod(residue, modulus)
 
     override def relation: EquivalenceRelation[A] = EquivalenceRelation[A, A](x => domain.mod(x, modulus))
   }

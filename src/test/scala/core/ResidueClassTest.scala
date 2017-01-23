@@ -47,6 +47,18 @@ class ResidueClassTest extends FunSuite with Matchers {
     classOf(2) != 2
   }
 
+  test("Residue classes can be used in Sets") {
+
+    implicit def intsMod4 = integers modulo_r 4
+    def classOf = intToResidueClass(4)
+
+    val set = Set(classOf(0), classOf(1), classOf(5))
+
+    set.size should be (2)
+    set.contains(classOf(8)) should be (true)
+    set.contains(classOf(7)) should be (false)
+  }
+
   test("Residue classes are printed in square bracket notation") {
 
     def intsMod4 = integers modulo_r 4
