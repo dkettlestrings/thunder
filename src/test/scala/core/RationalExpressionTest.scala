@@ -36,4 +36,13 @@ class RationalExpressionTest extends FunSuite with Matchers {
     (RationalExpression(2, 3) !== RationalExpression(2, 3)) should be (false)
   }
 
+  test("Rational expressions can be used in sets") {
+
+    val set = Set(RationalExpression(2, 3), RationalExpression(3, 2), RationalExpression(4, 6))
+
+    set.size should be (2)
+    set.contains(RationalExpression(6, 4)) should be (true)
+    set.contains(RationalExpression(2, 6)) should be (false)
+  }
+
 }

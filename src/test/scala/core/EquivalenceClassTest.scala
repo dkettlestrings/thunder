@@ -18,10 +18,4 @@ class EquivalenceClassTest extends FunSuite with Matchers {
     classForZero.contains(6) should be (true)
     classForZero.contains(7) should be (false)
   }
-
-  //TODO: suppress compiler warning about equality on different types.  Wait, if the compiler knows, then why is the signature Any/  See https://github.com/dkettlestrings/thunder/issues/46
-  test("Equality checks on equivalence classes do type checks") {
-
-    classForZero == 0 should be (false)
-  }
 }

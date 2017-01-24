@@ -33,7 +33,7 @@ class AdjoiningOperationsTest extends FunSuite with Matchers {
     Polynomial(zero) should be (polyRing.zero)
     Polynomial(one, three, one) + Polynomial(three, five, zero) should be (Polynomial(one))
 
-    //It ss just a PolynomialRing, not a PolynomialRingOverField, so it does not have quot for example
+    //It is just a PolynomialRing, not a PolynomialRingOverField, so it does not have quot for example
     assertDoesNotCompile("polyRing.quot(polyRing.one, polyRing.one)")
   }
 

@@ -66,4 +66,13 @@ class PolynomialTest extends FunSuite with Matchers {
 
     Polynomial(two) == 2 should be (false)
   }
+
+  test("Polynomials can be used in sets") {
+
+    val set = Set(Polynomial(zero, one, two), Polynomial(two, one) ,Polynomial(one, two))
+
+    set.size should be (2)
+    set.contains(Polynomial(zero, two, one)) should be (true)
+    set.contains(Polynomial(three, one)) should be (false)
+  }
 }
