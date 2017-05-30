@@ -1,7 +1,7 @@
 package core
 
+import core.ModuloOperations._
 import integer.integers
-import ModuloOperations._
 import org.scalatest.{FunSuite, Matchers}
 
 class ResidueClassTest extends FunSuite with Matchers {

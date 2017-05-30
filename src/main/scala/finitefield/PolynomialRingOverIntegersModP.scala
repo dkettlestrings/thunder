@@ -34,9 +34,9 @@ object PolynomialRingOverIntegersModP {
 
       override def times(x: Polynomial[ResidueClass[Int]], y: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = delegate.times(x, y)
 
-      override def quot(a: Polynomial[ResidueClass[Int]], b: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = ???
+      override def quot(a: Polynomial[ResidueClass[Int]], b: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = delegate.quot(a, b)
 
-      override def mod(a: Polynomial[ResidueClass[Int]], b: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = ???
+      override def mod(a: Polynomial[ResidueClass[Int]], b: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = delegate.mod(a, b)
     }
 
 

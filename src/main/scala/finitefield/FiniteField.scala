@@ -1,12 +1,13 @@
 package finitefield
 
 import algebra.ring.Field
-import core.{FinitelyGenerable, ResidueClass}
 import core.ModuloOperations._
+import core.{FinitelyGenerable, ResidueClass}
 import integer.IntegersModP
 import polynomial.Polynomial
 import polynomial.Predef.X
-import language.postfixOps
+
+import scala.language.postfixOps
 
 trait FiniteField extends Field[ResidueClass[Polynomial[ResidueClass[Int]]]] with FinitelyGenerable[ResidueClass[Polynomial[ResidueClass[Int]]]] {
 
@@ -23,7 +24,7 @@ object FiniteField {
     implicit def ctxt = PolynomialOverIntsModPModdingContext(polyRing)
 
     //TODO: look up polynomial to use!  Also, create a DSL for making this prettier.
-    val irreducible = (Polynomial(polyRing.coefficients.one, polyRing.coefficients.zero) ^ p ) - polyRing.one
+    val irreducible = (Polynomial(polyRing.coefficients.one, polyRing.coefficients.zero) ^ exp ) - polyRing.one
 
     implicit val delegate = polyRing modulo_f irreducible
 

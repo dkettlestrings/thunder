@@ -2,7 +2,7 @@ package core
 
 import algebra.ring.{EuclideanRing, Field}
 
-import language.implicitConversions
+import scala.language.implicitConversions
 
 /**
   * Adds the operation of creating a quotient Field from a EuclideanRing.

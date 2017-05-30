@@ -16,7 +16,7 @@ private [polynomial] trait PolynomialRingOps[A] {
 
     case (x, z) if z == zero => x
     case (z, y) if z == zero => y
-    case _ => {
+    case _ =>
 
       val sumsOfCoefficients = for {
 
@@ -27,13 +27,12 @@ private [polynomial] trait PolynomialRingOps[A] {
 
       Polynomial(param, sumsOfCoefficients.toList.reverse)
 
-    }
   }
 
   def negate(x: Polynomial[A]): Polynomial[A] = x match {
 
     case z if z == zero => zero
-    case _ => {
+    case _ =>
       val negatedCoefficients = for {
 
         d <- 0 to x.degree.toInt
@@ -41,14 +40,14 @@ private [polynomial] trait PolynomialRingOps[A] {
       } yield coefficientRing.negate(coefficient.get)
 
       Polynomial(param, negatedCoefficients.toList.reverse)
-    }
+
   }
 
   def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = (x, y) match {
 
     case (x, z) if z == zero => zero
     case (z, y) if z == zero => zero
-    case _ => {
+    case _ =>
 
       val terms = for {
 
@@ -60,6 +59,6 @@ private [polynomial] trait PolynomialRingOps[A] {
       } yield Polynomial[A](param, coefficientRing.times(c1.get, c2.get) :: List.fill(d1 + d2)(coefficientRing.zero))
 
       terms.foldLeft(zero)(plus)
-    }
+
   }
 }

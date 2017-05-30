@@ -1,7 +1,8 @@
 package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-import language.implicitConversions
+
+import scala.language.implicitConversions
 
 /**
   * Adds modding operations to EuclideanRings.

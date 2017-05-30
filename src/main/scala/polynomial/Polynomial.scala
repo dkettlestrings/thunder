@@ -1,9 +1,10 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
+
 import scala.annotation.tailrec
+import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
-import language.postfixOps
 
 //TODO: coefficient vs. coefficients is confusing. See https://github.com/dkettlestrings/thunder/issues/45
 /**
@@ -81,6 +82,8 @@ trait Polynomial[A] {
       case Failure(throwable) => false
     }
   }
+
+  override def hashCode(): Int = param.hashCode() + trimLeadingZeros(coefficients).hashCode()
 
   /**
     * Returns a String representation of the polynomial in the common mathematical form.

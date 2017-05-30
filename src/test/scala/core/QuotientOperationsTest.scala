@@ -1,8 +1,9 @@
 package core
 
+import core.QuotientOperations._
 import integer.integers
-import QuotientOperations._
 import org.scalatest.{FunSuite, Matchers}
+
 import scala.language.postfixOps
 
 class QuotientOperationsTest extends FunSuite with Matchers {

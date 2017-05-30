@@ -1,7 +1,8 @@
 package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-import scala.util.{Try, Success, Failure}
+
+import scala.util.{Failure, Success, Try}
 
 /**
   * An equivalence class of elements from a EuclideanRing produced by modding out by an element.
@@ -49,6 +50,8 @@ trait ResidueClass[A] extends EquivalenceClass[A] {
       case Failure(throwable) => false
     }
   }
+
+  override def hashCode(): Int = modulus.hashCode() + representative.hashCode()
 
   override def toString: String = s"[$representative]_$modulus"
 

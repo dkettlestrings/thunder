@@ -1,8 +1,9 @@
 package polynomial
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-import language.implicitConversions
+
 import scala.annotation.tailrec
+import scala.language.implicitConversions
 
 /**
   * Adds the ability to adjoin a [[FormalParameter]] to create a ring of [[Polynomial]]s.

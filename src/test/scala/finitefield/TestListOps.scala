@@ -1,7 +1,7 @@
 package finitefield
 
+import finitefield.ListOps.product
 import org.scalatest.{FunSuite, Matchers}
-import ListOps.product
 
 class TestListOps extends FunSuite with Matchers {
 

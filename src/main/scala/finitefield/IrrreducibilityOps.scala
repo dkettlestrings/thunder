@@ -5,24 +5,39 @@ import polynomial.{FiniteInteger, Polynomial}
 
 object IrrreducibilityOps {
 
-  def monicIrreduciblePolynomialOfDegree(n: Int, polyRing: PolynomialRingOverIntegersModP): Polynomial[ResidueClass[Int]] = {
+  def monicIrreduciblePolynomialsOfDegree(n: Int, polyRing: PolynomialRingOverIntegersModP): Set[Polynomial[ResidueClass[Int]]] = {
+
+    require(n >= 0)
 
     implicit val coefficientField = polyRing.coefficients
 
-    val ctxt = PolynomialOverIntsModPModdingContext(polyRing)
+    n match {
 
-    val coefficients = polyRing.coefficients.one :: List.fill(n)(polyRing.coefficients.one)
-    val allPolysUpToDegreeN = ctxt.elementsUpTo(Polynomial(polyRing.parameter, coefficients))
+      case 0 => Set(Polynomial(polyRing.parameter, coefficientField.one))
+      case d if d >=1 =>
 
-    val monicPolysOfDegreeN = allPolysUpToDegreeN.filter(p => p.degree == FiniteInteger(n) && p.leadingCoefficient == polyRing.coefficients.one)
-    val polysOfDegreeLessThanN = allPolysUpToDegreeN.filter(_.degree < FiniteInteger(n))
+        val context = PolynomialOverIntsModPModdingContext(polyRing)
 
-    //Find a monic polynomial of degree n that is not divisible by polynomials of degree less than n
-    val irreducible = monicPolysOfDegreeN.find(mp => polysOfDegreeLessThanN.forall(p => polyRing.mod(mp, p) != polyRing.zero))
-    irreducible match {
-      case Some(polynomial) => polynomial
-      case None => throw new ArithmeticException(s"No monic irreducible polynomial of degree $n was found.  This should be impossible.")
+        val coefficients = polyRing.coefficients.one :: List.fill(n)(polyRing.coefficients.one)
+
+        val allNonConstantPolysUpToDegreeN = context.elementsUpTo(Polynomial(polyRing.parameter, coefficients))
+                                                    .filter(_.degree != FiniteInteger(0))
+
+        val monicPolysOfDegreeN = allNonConstantPolysUpToDegreeN
+                                    .filter(p =>
+                                      p.degree == FiniteInteger(n) &&
+                                      p.leadingCoefficient == polyRing.coefficients.one)
+
+        val nonConstantPolysOfDegreeLessThanN = allNonConstantPolysUpToDegreeN.filter(_.degree < FiniteInteger(n))
+
+        val irreducibles = monicPolysOfDegreeN.filter(mp => nonConstantPolysOfDegreeLessThanN.forall(p => polyRing.mod(mp, p) != polyRing.zero))
+
+        irreducibles.toSet
+
+
     }
   }
+
+
 
 }

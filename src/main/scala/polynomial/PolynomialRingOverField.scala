@@ -1,7 +1,7 @@
 package polynomial
 
-import AdjoiningOperations._
 import algebra.ring.{EuclideanRing, Field}
+import polynomial.AdjoiningOperations._
 
 trait PolynomialRingOverField[A] extends EuclideanRing[Polynomial[A]] {
 

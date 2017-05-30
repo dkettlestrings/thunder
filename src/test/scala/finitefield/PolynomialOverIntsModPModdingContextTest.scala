@@ -36,7 +36,6 @@ class PolynomialOverIntsModPModdingContextTest extends FunSuite with Matchers {
     polynomialsOfDegreeOne.foreach(poly => {
 
       val polysUpTo = ctxt.elementsUpTo(poly)
-      println(polysUpTo)
 
       val (degreeZero, degreeOne) = polysUpTo.splitAt(2)
 

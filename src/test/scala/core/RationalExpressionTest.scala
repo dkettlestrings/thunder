@@ -36,6 +36,11 @@ class RationalExpressionTest extends FunSuite with Matchers {
     (RationalExpression(2, 3) !== RationalExpression(2, 3)) should be (false)
   }
 
+  test("Rational expression hashcode respects \"algebraic\" equality") {
+
+    RationalExpression(2, 3).hashCode() == RationalExpression(4,6).hashCode() should be (true)
+  }
+
   test("Rational expressions can be used in sets") {
 
     val set = Set(RationalExpression(2, 3), RationalExpression(3, 2), RationalExpression(4, 6))

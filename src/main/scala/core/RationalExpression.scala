@@ -1,6 +1,7 @@
 package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
+
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -71,6 +72,8 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
       case Failure(throwable) => false
     }
   }
+
+  override def hashCode(): Int = numerator.hashCode() / denominator.hashCode()
 }
 
 

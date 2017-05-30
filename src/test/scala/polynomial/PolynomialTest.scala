@@ -1,8 +1,8 @@
 package polynomial
 
 import integer.IntegersModN
-import polynomial.Predef.X
 import org.scalatest.{FunSuite, Matchers}
+import polynomial.Predef.X
 
 class PolynomialTest extends FunSuite with Matchers {
 
