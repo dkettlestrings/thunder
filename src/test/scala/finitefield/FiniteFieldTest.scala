@@ -14,6 +14,11 @@ class FiniteFieldTest extends FunSuite with Matchers {
     val one = ff.one
     val two = ff.one + ff.one
 
+    ff.elements should be (Set(zero, one, two))
+    ff.elements.foreach(x =>
+      x + x + x should be (zero)
+    )
+
     zero + zero should be (zero)
     one + one should be (two)
     one + two should be (zero)
@@ -28,6 +33,10 @@ class FiniteFieldTest extends FunSuite with Matchers {
     implicit val ff = FiniteField(3, 2)
     ff.elements.size should be (9)
     ff.characteristic should be (3)
+
+    ff.elements.foreach(x =>
+      x + x + x should be (ff.zero)
+    )
 
   }
 }

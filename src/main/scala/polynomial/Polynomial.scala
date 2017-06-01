@@ -83,7 +83,7 @@ trait Polynomial[A] {
     }
   }
 
-  override def hashCode(): Int = param.hashCode() + trimLeadingZeros(coefficients).hashCode()
+  override def hashCode(): Int = param.hashCode() + trimLeadingZeros(coefficients).hashCode
 
   /**
     * Returns a String representation of the polynomial in the common mathematical form.

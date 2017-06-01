@@ -1,8 +1,7 @@
 package core
 
 import algebra.ring.{CommutativeRing, EuclideanRing, Field}
-
-import scala.util.{Failure, Success, Try}
+import scala.util.{Try, Success, Failure}
 
 /**
   * An equivalence class of elements from a EuclideanRing produced by modding out by an element.

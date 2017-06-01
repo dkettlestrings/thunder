@@ -67,6 +67,11 @@ class PolynomialTest extends FunSuite with Matchers {
     Polynomial(two) == 2 should be (false)
   }
 
+  test("Hashcode respects equality") {
+
+    Polynomial(one, two, zero, three).hashCode == Polynomial(zero, zero, one, two, zero, three).hashCode should be (true)
+  }
+
   test("Polynomials can be used in sets") {
 
     val set = Set(Polynomial(zero, one, two), Polynomial(two, one) ,Polynomial(one, two))

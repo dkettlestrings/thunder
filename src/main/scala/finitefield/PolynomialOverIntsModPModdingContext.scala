@@ -11,7 +11,8 @@ object PolynomialOverIntsModPModdingContext {
 
       val nonZeroElements = (polyRing.coefficients.elements - polyRing.coefficients.zero).toIndexedSeq
 
-      a.degree match {
+      // The @unchecked is to suppress a compiler warning for not matching against PositiveInfinity, which is impossible
+      (a.degree: @unchecked) match {
 
         case NegativeInfinity => throw new ArithmeticException("elementsUpTo(zero) is undefined")
         case FiniteInteger(d) => (0 to d).flatMap( n => {

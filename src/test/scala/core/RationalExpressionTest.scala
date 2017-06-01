@@ -38,7 +38,7 @@ class RationalExpressionTest extends FunSuite with Matchers {
 
   test("Rational expression hashcode respects \"algebraic\" equality") {
 
-    RationalExpression(2, 3).hashCode() == RationalExpression(4,6).hashCode() should be (true)
+    RationalExpression(2, 3).hashCode == RationalExpression(4,6).hashCode should be (true)
   }
 
   test("Rational expressions can be used in sets") {
