@@ -1,5 +1,6 @@
 package polynomial
 
+import core.NegativeInfinity
 import integer.IntegersModN
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.Predef.X

@@ -1,6 +1,6 @@
 package finitefield
 
-import core.ResidueClass
+import core.{ExtendedInteger, ResidueClass}
 import integer.IntegersModP
 import polynomial.{FormalParameter, Polynomial, PolynomialRingOverField}
 
@@ -10,6 +10,7 @@ trait PolynomialRingOverIntegersModP extends PolynomialRingOverField[ResidueClas
 
 }
 
+//TODO: Is there a better way than using this delegate?  Inheritence, typeclass, macro, etc?
 object PolynomialRingOverIntegersModP {
 
   def apply[A](p: Int, param: FormalParameter): PolynomialRingOverIntegersModP = {
@@ -37,6 +38,8 @@ object PolynomialRingOverIntegersModP {
       override def quot(a: Polynomial[ResidueClass[Int]], b: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = delegate.quot(a, b)
 
       override def mod(a: Polynomial[ResidueClass[Int]], b: Polynomial[ResidueClass[Int]]): Polynomial[ResidueClass[Int]] = delegate.mod(a, b)
+
+      override def norm(a: Polynomial[ResidueClass[Int]]): ExtendedInteger = delegate.norm(a)
     }
 
 

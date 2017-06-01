@@ -1,6 +1,7 @@
 package polynomial
 
-import algebra.ring.{CommutativeRing, EuclideanRing, Field}
+import algebra.ring.CommutativeRing
+import core.{EuclideanDomain, ExtendedInteger, Field}
 
 import scala.annotation.tailrec
 import scala.language.implicitConversions
@@ -43,13 +44,13 @@ object AdjoiningOperations {
     implicit def field: Field[A]
 
     /**
-      * Create a EuclideanRing of [[Polynomial]]s with coefficients in the original Field.
+      * Create a EuclideanDomain of [[Polynomial]]s with coefficients in the original Field.
       *
       * Use this operation on Fields.  See r_adjoin for operating on CommutativeRings.
       * @param p
       * @return
       */
-    def f_adjoin(p: FormalParameter): EuclideanRing[Polynomial[A]] = new EuclideanRing[Polynomial[A]] with PolynomialRingOps[A] {
+    def f_adjoin(p: FormalParameter): EuclideanDomain[Polynomial[A]] = new EuclideanDomain[Polynomial[A]] with PolynomialRingOps[A] {
 
       override def coefficientRing: CommutativeRing[A] = field
 
@@ -78,6 +79,8 @@ object AdjoiningOperations {
       }
 
       override def mod(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x - (quot(x, y) * y)
+
+      override def norm(a: Polynomial[A]): ExtendedInteger = a.degree
 
     }
   }

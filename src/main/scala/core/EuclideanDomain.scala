@@ -7,7 +7,7 @@ import algebra.ring.CommutativeRing
   */
 trait EuclideanDomain[A] extends CommutativeRing[A] {
 
-  def norm(a: A): Double
+  def norm(a: A): ExtendedInteger
 
   def quot(x: A, y: A): A
 

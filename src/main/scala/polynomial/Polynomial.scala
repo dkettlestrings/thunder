@@ -1,6 +1,7 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
+import core.{ExtendedInteger, FiniteInteger, NegativeInfinity}
 
 import scala.annotation.tailrec
 import scala.language.postfixOps

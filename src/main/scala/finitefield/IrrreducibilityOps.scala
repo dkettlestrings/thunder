@@ -1,7 +1,7 @@
 package finitefield
 
-import core.ResidueClass
-import polynomial.{FiniteInteger, Polynomial}
+import core.{FiniteInteger, ResidueClass}
+import polynomial.Polynomial
 
 object IrrreducibilityOps {
 

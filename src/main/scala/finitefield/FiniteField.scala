@@ -1,8 +1,7 @@
 package finitefield
 
-import algebra.ring.Field
 import core.ModuloOperations._
-import core.{FinitelyGenerable, ResidueClass}
+import core.{FinitelyGenerable, Field, ResidueClass}
 import integer.IntegersModP
 import polynomial.Polynomial
 import polynomial.Predef.X

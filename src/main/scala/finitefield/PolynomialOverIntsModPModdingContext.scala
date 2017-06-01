@@ -1,11 +1,11 @@
 package finitefield
 
-import core.{EuclideanRingModdingContext, ResidueClass}
-import polynomial.{FiniteInteger, NegativeInfinity, Polynomial}
+import core.{EuclideanDomainModdingContext, NegativeInfinity, FiniteInteger, ResidueClass}
+import polynomial.Polynomial
 
 object PolynomialOverIntsModPModdingContext {
 
-  def apply(polyRing: PolynomialRingOverIntegersModP): EuclideanRingModdingContext[Polynomial[ResidueClass[Int]]] = new EuclideanRingModdingContext[Polynomial[ResidueClass[Int]]] {
+  def apply(polyRing: PolynomialRingOverIntegersModP): EuclideanDomainModdingContext[Polynomial[ResidueClass[Int]]] = new EuclideanDomainModdingContext[Polynomial[ResidueClass[Int]]] {
 
     override def elementsUpTo(a: Polynomial[ResidueClass[Int]]): IndexedSeq[Polynomial[ResidueClass[Int]]] = {
 

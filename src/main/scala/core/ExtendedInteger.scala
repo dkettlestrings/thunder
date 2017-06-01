@@ -1,4 +1,4 @@
-package polynomial
+package core
 
 //TODO: An equals method?  See https://github.com/dkettlestrings/thunder/issues/49
 /**

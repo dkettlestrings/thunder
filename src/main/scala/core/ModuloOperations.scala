@@ -1,25 +1,25 @@
 package core
 
-import algebra.ring.{CommutativeRing, EuclideanRing, Field}
+import algebra.ring.CommutativeRing
 
 import scala.language.implicitConversions
 
 /**
-  * Adds modding operations to EuclideanRings.
+  * Adds modding operations to EuclideanDomains.
   */
 object ModuloOperations {
 
-  implicit def toModdable[A](er: EuclideanRing[A]): ModdableEuclideanRing[A] = new ModdableEuclideanRing[A] {
+  implicit def toModdable[A](er: EuclideanDomain[A]): ModdableEuclideanDomain[A] = new ModdableEuclideanDomain[A] {
 
     override def originalRing = er
   }
 
-  trait ModdableEuclideanRing[A] {
+  trait ModdableEuclideanDomain[A] {
 
-    implicit def originalRing: EuclideanRing[A]
+    implicit def originalRing: EuclideanDomain[A]
 
     /**
-      * Mods the EuclideanRing by the element a and returns a CommutativeRing.
+      * Mods the EuclideanDomain by the element a and returns a CommutativeRing.
       *
       * Use this operation when modding out by a reducible (non-irreducible) element.
       * @param m
@@ -27,14 +27,14 @@ object ModuloOperations {
       */
     def modulo_r(m: A): CommutativeRing[ResidueClass[A]] = new CommutativeRing[ResidueClass[A]] with ModuloRingOps[A] {
 
-      override def domain: EuclideanRing[A] = originalRing
+      override def domain: EuclideanDomain[A] = originalRing
 
       override def modulus: A = m
 
     }
 
     /**
-      * Mods the EuclideanRing by the element a and returns a Field.
+      * Mods the EuclideanDomain by the element a and returns a Field.
       *
       * Use this operation when modding out by an irreducible element.  For performance reasons, this operation does
       * not check that criterion, it is up to the user to ensure this requirement.  If this requirement is not met,
@@ -43,9 +43,9 @@ object ModuloOperations {
       * @param context
       * @return
       */
-    def modulo_f(m: A)(implicit context: EuclideanRingModdingContext[A]): Field[ResidueClass[A]] = new Field[ResidueClass[A]] with ModuloRingOps[A] {
+    def modulo_f(m: A)(implicit context: EuclideanDomainModdingContext[A]): Field[ResidueClass[A]] = new Field[ResidueClass[A]] with ModuloRingOps[A] {
 
-      override def domain: EuclideanRing[A] = originalRing
+      override def domain: EuclideanDomain[A] = originalRing
 
       override def modulus: A = m
 

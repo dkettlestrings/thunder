@@ -1,15 +1,15 @@
 package integer
 
-import algebra.ring.EuclideanRing
+import core.{EuclideanDomain, ExtendedInteger, FiniteInteger}
 
 /**
-  * Creates a EuclideanRing of Ints.
+  * Creates a EuclideanDomain of Ints.
   *
   * It is recommended that you use [[integer.integers]] as opposed to instantiating your own.
   */
 object Integers {
 
-  def apply(): EuclideanRing[Int] = new EuclideanRing[Int] {
+  def apply(): EuclideanDomain[Int] = new EuclideanDomain[Int] {
 
     override def zero: Int = 0
 
@@ -27,6 +27,8 @@ object Integers {
     }
 
     override def quot(a: Int, b: Int): Int = a / b
+
+    override def norm(a: Int): ExtendedInteger = FiniteInteger(math.abs(a))
 
   }
 }

@@ -1,8 +1,7 @@
 package integer
 
-import algebra.ring.Field
 import core.ModuloOperations._
-import core.{FinitelyGenerable, ResidueClass}
+import core.{FinitelyGenerable, Field, ResidueClass}
 
 /**
   * Describes the Field of the integers modulo a prime.

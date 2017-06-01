@@ -1,25 +1,23 @@
 package core
 
-import algebra.ring.{EuclideanRing, Field}
-
 import scala.language.implicitConversions
 
 /**
-  * Adds the operation of creating a quotient Field from a EuclideanRing.
+  * Adds the operation of creating a quotient Field from a EuclideanDomain.
   */
 object QuotientOperations {
 
-  implicit def toRationalizable[A](er: EuclideanRing[A]): RationalizeAbleEuclideanRing[A] = new RationalizeAbleEuclideanRing[A] {
+  implicit def toRationalizable[A](er: EuclideanDomain[A]): RationalizableEuclideanDomain[A] = new RationalizableEuclideanDomain[A] {
 
-    override def domain: EuclideanRing[A] = er
+    override def domain: EuclideanDomain[A] = er
   }
 
-  trait RationalizeAbleEuclideanRing[A] {
+  trait RationalizableEuclideanDomain[A] {
 
-    implicit def domain: EuclideanRing[A]
+    implicit def domain: EuclideanDomain[A]
 
     /**
-      * Creates the field of [[RationalExpression]]s (quotients) of elements of the EuclideanRing.
+      * Creates the field of [[RationalExpression]]s (quotients) of elements of the EuclideanDomain.
       *
       * A good example of a field of quotients is the rational numbers.  You create "fractions" of elements of the
       * integers (a ring).
