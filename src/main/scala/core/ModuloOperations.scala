@@ -61,9 +61,6 @@ object ModuloOperations {
         this.times(x, yInverse)
       }
 
-      //TODO: update algebra dependency so I don't have to override this stuff see https://github.com/dkettlestrings/thunder/issues/15
-      override def mod(a: ResidueClass[A], b: ResidueClass[A]): ResidueClass[A] = ???
-      override def quot(a: ResidueClass[A], b: ResidueClass[A]): ResidueClass[A] = ???
     }
   }
 

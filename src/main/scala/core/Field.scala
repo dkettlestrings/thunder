@@ -11,16 +11,12 @@ trait Field[A] extends EuclideanDomain[A] {
     case _ => FiniteInteger(1)
   }
 
-  override def quot(x: A, y: A): A = y match {
-
-    case x if x == zero => throw new ArithmeticException("Dividing by zero")
-    case _ => one
-  }
+  override def quot(x: A, y: A): A = div(x, y)
 
   override def mod(x: A, y: A): A = y match {
 
-    case x if x == zero => throw new ArithmeticException("Dividing by zero")
-    case _ => one
+    case z if z == zero => throw new ArithmeticException("Dividing by zero")
+    case _ => zero
   }
 
   def div(x: A, y: A): A

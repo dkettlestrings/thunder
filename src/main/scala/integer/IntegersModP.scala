@@ -37,10 +37,5 @@ object IntegersModP {
 
     override def div(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = delegate.div(x, y)
 
-    //TODO: update algebra dependency so I don't have to override this stuff see https://github.com/dkettlestrings/thunder/issues/15
-    override def quot(a: ResidueClass[Int], b: ResidueClass[Int]): ResidueClass[Int] = delegate.quot(a, b)
-
-    override def mod(a: ResidueClass[Int], b: ResidueClass[Int]): ResidueClass[Int] = delegate.mod(a, b)
-
   }
 }

@@ -54,10 +54,6 @@ object QuotientOperations {
         RationalExpression(newNum, newDenom)
       }
 
-      //TODO: update algebra dependency so I can use default implementations see https://github.com/dkettlestrings/thunder/issues/15
-      override def quot(a: RationalExpression[A], b: RationalExpression[A]): RationalExpression[A] = ???
-
-      override def mod(a: RationalExpression[A], b: RationalExpression[A]): RationalExpression[A] = ???
     }
 
   }

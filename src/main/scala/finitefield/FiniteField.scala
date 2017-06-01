@@ -45,9 +45,6 @@ object FiniteField {
 
       override def div(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.div(x, y)
 
-      //TODO: update algebra dependency so I don't have to override this stuff see https://github.com/dkettlestrings/thunder/issues/15
-      override def quot(a: ResidueClass[Polynomial[ResidueClass[Int]]], b: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = ???
-      override def mod(a: ResidueClass[Polynomial[ResidueClass[Int]]], b: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = ???
     }
   }
 }

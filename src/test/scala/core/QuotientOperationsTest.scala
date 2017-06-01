@@ -68,10 +68,4 @@ class QuotientOperationsTest extends FunSuite with Matchers {
     RationalExpression(12, 7) / RationalExpression(6, 5) == RationalExpression(10, 7) should be (true)
   }
 
-  test("It also has useless div and mod functions that will be deprecated when the algebra dependency is updated") {
-
-    intercept[NotImplementedError](rationals.quot(half, half))
-    intercept[NotImplementedError](rationals.mod(half, half))
-  }
-
 }
