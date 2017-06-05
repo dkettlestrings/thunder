@@ -6,7 +6,7 @@ class IntegersTest extends FunSuite with Matchers {
 
   val integers = Integers()
 
-  test("The integers have the usual operations of a EuclideanRing") {
+  test("The integers have the usual operations of a EuclideanDomain") {
 
     integers.plus(2, 3) should be (5)
     integers.one should be (1)

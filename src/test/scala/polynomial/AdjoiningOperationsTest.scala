@@ -1,9 +1,9 @@
 package polynomial
 
-import AdjoiningOperations._
-import Predef.X
-import integer.{integers, IntegersModN, IntegersModP}
+import integer.{IntegersModN, IntegersModP, integers}
 import org.scalatest.{FunSuite, Matchers}
+import polynomial.AdjoiningOperations._
+import polynomial.Predef.X
 
 class AdjoiningOperationsTest extends FunSuite with Matchers {
 

@@ -30,7 +30,7 @@ or if you're more paranoid, you can both compile and run tests
 
 To build `thunder` you need the following:
 * [sbt](http://www.scala-sbt.org/): version 0.13.8 or higher (older versions probably work, but have not been tested)
-* [Scala](http://www.scala-lang.org/): version 2.11.7 or higher (older versions may work, but have not been tested)
+* [Scala](http://www.scala-lang.org/): version 2.11.8 or higher (older versions may work, but have not been tested)
 
 ## Contributing
 

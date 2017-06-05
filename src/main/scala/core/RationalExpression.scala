@@ -1,10 +1,11 @@
 package core
 
-import algebra.ring.{CommutativeRing, EuclideanRing, Field}
+import algebra.ring.CommutativeRing
+
 import scala.util.{Failure, Success, Try}
 
 /**
-  * A quotient of elements from a EuclideanRing.
+  * A quotient of elements from a EuclideanDomain.
   *
   * Think of it as a fraction.
   *
@@ -12,7 +13,7 @@ import scala.util.{Failure, Success, Try}
   */
 trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
 
-  def domain: EuclideanRing[A]
+  def domain: EuclideanDomain[A]
 
   def numerator: A
 
@@ -71,6 +72,8 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
       case Failure(throwable) => false
     }
   }
+
+  override def hashCode(): Int = numerator.hashCode() / denominator.hashCode()
 }
 
 
@@ -79,9 +82,9 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
   */
 object RationalExpression {
 
-  def apply[A](num: A, denom: A)(implicit euclideanRing: EuclideanRing[A]): RationalExpression[A] = new RationalExpression[A] {
+  def apply[A](num: A, denom: A)(implicit euclideanRing: EuclideanDomain[A]): RationalExpression[A] = new RationalExpression[A] {
 
-    override def domain: EuclideanRing[A]= euclideanRing
+    override def domain: EuclideanDomain[A]= euclideanRing
 
     override def numerator: A = num
 

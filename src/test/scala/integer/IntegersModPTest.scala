@@ -56,10 +56,4 @@ class IntegersModPTest extends FunSuite with Matchers {
     intercept[RuntimeException](intsMod4.div(one_4, two_4))
   }
 
-  test("It also has useless div and mod functions that will be deprecated when the algebra dependency is updated") {
-
-    intercept[NotImplementedError](intsMod3.quot(one, one))
-    intercept[NotImplementedError](intsMod3.mod(one, one))
-  }
-
 }

@@ -1,8 +1,9 @@
 package polynomial
 
+import core.NegativeInfinity
 import integer.IntegersModN
-import polynomial.Predef.X
 import org.scalatest.{FunSuite, Matchers}
+import polynomial.Predef.X
 
 class PolynomialTest extends FunSuite with Matchers {
 
@@ -65,6 +66,11 @@ class PolynomialTest extends FunSuite with Matchers {
   test("Polynomial equality checks for type") {
 
     Polynomial(two) == 2 should be (false)
+  }
+
+  test("Hashcode respects equality") {
+
+    Polynomial(one, two, zero, three).hashCode == Polynomial(zero, zero, one, two, zero, three).hashCode should be (true)
   }
 
   test("Polynomials can be used in sets") {

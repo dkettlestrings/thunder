@@ -19,7 +19,7 @@ trait EquivalenceClass[A] {
   def representative: A
 
   /**
-    * A predicate to determine whether this EquivalenceClass contains the element.
+    * A predicate to determine whether this [[EquivalenceClass]] contains the element.
     * @param a
     * @return
     */
@@ -42,9 +42,9 @@ object EquivalenceClass {
   def apply[A](representativeElement: A, equivalenceRelation: EquivalenceRelation[A]): EquivalenceClass[A] = {
 
     new EquivalenceClass[A] {
-      override def representative = representativeElement
+      override def representative: A = representativeElement
 
-      override def relation = equivalenceRelation
+      override def relation: EquivalenceRelation[A] = equivalenceRelation
     }
 
   }

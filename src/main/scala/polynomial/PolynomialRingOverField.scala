@@ -1,9 +1,9 @@
 package polynomial
 
-import AdjoiningOperations._
-import algebra.ring.{EuclideanRing, Field}
+import core.{EuclideanDomain, ExtendedInteger, Field}
+import polynomial.AdjoiningOperations._
 
-trait PolynomialRingOverField[A] extends EuclideanRing[Polynomial[A]] {
+trait PolynomialRingOverField[A] extends EuclideanDomain[Polynomial[A]] {
 
   def parameter: FormalParameter
 
@@ -34,5 +34,7 @@ object PolynomialRingOverField {
     override def quot(a: Polynomial[A], b: Polynomial[A]): Polynomial[A] = delegate.quot(a, b)
 
     override def mod(a: Polynomial[A], b: Polynomial[A]): Polynomial[A] = delegate.mod(a, b)
+
+    override def norm(a: Polynomial[A]): ExtendedInteger = a.degree
   }
 }

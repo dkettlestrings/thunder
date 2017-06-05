@@ -1,10 +1,8 @@
 package core
 
-import algebra.ring.EuclideanRing
-
 private[core] trait ModuloRingOps[A] {
 
-  implicit def domain: EuclideanRing[A]
+  implicit def domain: EuclideanDomain[A]
 
   def modulus: A
 

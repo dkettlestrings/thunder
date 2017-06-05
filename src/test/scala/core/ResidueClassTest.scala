@@ -1,7 +1,7 @@
 package core
 
+import core.ModuloOperations._
 import integer.integers
-import ModuloOperations._
 import org.scalatest.{FunSuite, Matchers}
 
 class ResidueClassTest extends FunSuite with Matchers {
@@ -44,7 +44,17 @@ class ResidueClassTest extends FunSuite with Matchers {
     implicit def intsMod4 = integers modulo_r 4
     def classOf = intToResidueClass(4)
 
-    classOf(2) != 2
+    classOf(2) != 2 should be (true)
+  }
+
+  test("Hashcode respects equality") {
+
+    implicit def intsMod4 = integers modulo_r 4
+    def classOf = intToResidueClass(4)
+
+    classOf(2).hashCode == classOf(2).hashCode should be (true)
+    classOf(2).hashCode == classOf(6).hashCode should be (true)
+    classOf(2).hashCode == classOf(-2).hashCode should be (true)
   }
 
   test("Residue classes can be used in Sets") {

@@ -1,5 +1,6 @@
 package polynomial
 
+import core.{FiniteInteger, NegativeInfinity, PositiveInfinity}
 import org.scalatest.{FunSuite, Matchers}
 
 class ExtendedIntegerTest extends FunSuite with Matchers {

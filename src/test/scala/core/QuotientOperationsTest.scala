@@ -1,8 +1,9 @@
 package core
 
+import core.QuotientOperations._
 import integer.integers
-import QuotientOperations._
 import org.scalatest.{FunSuite, Matchers}
+
 import scala.language.postfixOps
 
 class QuotientOperationsTest extends FunSuite with Matchers {
@@ -65,12 +66,6 @@ class QuotientOperationsTest extends FunSuite with Matchers {
     half / half == one should be (true)
     half / one == half should be (true)
     RationalExpression(12, 7) / RationalExpression(6, 5) == RationalExpression(10, 7) should be (true)
-  }
-
-  test("It also has useless div and mod functions that will be deprecated when the algebra dependency is updated") {
-
-    intercept[NotImplementedError](rationals.quot(half, half))
-    intercept[NotImplementedError](rationals.mod(half, half))
   }
 
 }
