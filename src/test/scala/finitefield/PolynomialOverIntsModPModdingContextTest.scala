@@ -30,7 +30,6 @@ class PolynomialOverIntsModPModdingContextTest extends FunSuite with Matchers {
 
   }
 
-  // TODO: Must fix immediately!  Set equality is needed!
   test("Elements up to a polynomial of degree one should be all polynomials of degree zero followed by all polynomials of degree one") {
 
     polynomialsOfDegreeOne.foreach(poly => {
