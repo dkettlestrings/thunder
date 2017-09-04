@@ -1,7 +1,7 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
-import core.{ExtendedInteger, FiniteInteger, NegativeInfinity}
+import core._
 
 import scala.annotation.tailrec
 import scala.language.postfixOps
@@ -13,7 +13,9 @@ import scala.util.{Failure, Success, Try}
   *
   * @tparam A The type of the coefficients.
   */
-trait Polynomial[A] {
+trait Polynomial[A] extends ArithmeticOps[Polynomial[A]] with EqualityShim[Polynomial[A]] {
+
+  override val me = this
 
   def param: FormalParameter
 
@@ -75,13 +77,8 @@ trait Polynomial[A] {
     case FiniteInteger(a) => coefficients(a)
   }
 
-  //TODO: Create some kind of Equalable trait to wrap the type checking.  This would be used in many places.  See https://github.com/dkettlestrings/thunder/issues/46
-  override def equals(obj: scala.Any): Boolean = {
-
-    Try(obj.asInstanceOf[Polynomial[A]]) match {
-      case Success(poly) => this.param == poly.param && trimLeadingZeros(this.coefficients) == trimLeadingZeros(poly.coefficients)
-      case Failure(throwable) => false
-    }
+  override def equalz(other: Polynomial[A]): Boolean = {
+    param == other.param && trimLeadingZeros(coefficients) == trimLeadingZeros(other.coefficients)
   }
 
   override def hashCode(): Int = param.hashCode() + trimLeadingZeros(coefficients).hashCode
@@ -123,25 +120,6 @@ trait Polynomial[A] {
     }
 
   }
-
-  def +(other: Polynomial[A])(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.plus(this, other)
-
-  def -(other: Polynomial[A])(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.minus(this, other)
-
-  def *(other: Polynomial[A])(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.times(this, other)
-
-  /**
-    * Exponentiation (repeated multiplication) operator.
-    *
-    * Note that this implementation adopts the convention of if z is the zero element, z^0 == 0.
-    *
-    * @param exp
-    * @param ring
-    * @return
-    */
-  def ^(exp: Int)(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.pow(this, exp)
-
-  def negate(implicit ring: CommutativeRing[Polynomial[A]]): Polynomial[A] = ring.negate(this)
 
   @tailrec
   private def trimLeadingZeros(a: List[A]): List[A] = a match {

@@ -12,7 +12,7 @@ class FiniteFieldTest extends FunSuite with Matchers {
 
     val zero = ff.zero
     val one = ff.one
-    val two = ff.one + ff.one
+    val two = one + one
 
     ff.elements should be (Set(zero, one, two))
     ff.elements.foreach(x =>

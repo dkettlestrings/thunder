@@ -1,7 +1,5 @@
 package core
 
-import algebra.ring.CommutativeRing
-
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -11,7 +9,9 @@ import scala.util.{Failure, Success, Try}
   *
   * @tparam A
   */
-trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
+trait RationalExpression[A] extends EquivalenceClass[(A, A)] with ArithmeticOps[RationalExpression[A]] {
+
+  override val me = this
 
   def domain: EuclideanDomain[A]
 
@@ -29,27 +29,6 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] {
   def ===(that: RationalExpression[A]): Boolean = this.numerator == that.numerator && this.denominator == that.denominator
 
   def !==(that: RationalExpression[A]): Boolean = !(this === that)
-
-  def +(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.plus(this, that)
-
-  def -(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.minus(this, that)
-
-  def *(that: RationalExpression[A])(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.times(this, that)
-
-  /**
-    * Exponentiation (repeated multiplication) operator.
-    *
-    * Note that this implementation adopts the convention of if z is the zero element, z^0 == 0.
-    *
-    * @param exp
-    * @param ring
-    * @return
-    */
-  def ^(exp: Int)(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.pow(this, exp)
-
-  def negate(implicit ring: CommutativeRing[RationalExpression[A]]): RationalExpression[A] = ring.negate(this)
-
-  def /(that: RationalExpression[A])(implicit field: Field[RationalExpression[A]]): RationalExpression[A] = field.div(this, that)
 
   override def representative: (A, A) = (numerator, denominator)
 
