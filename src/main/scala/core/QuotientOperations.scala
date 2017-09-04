@@ -1,5 +1,6 @@
 package core
 
+import EuclideanDomainOps._
 import scala.language.implicitConversions
 
 /**
@@ -32,25 +33,25 @@ object QuotientOperations {
       override def plus(x: RationalExpression[A], y: RationalExpression[A]): RationalExpression[A] = {
 
         val newDenom = domain.times(x.denominator, y.denominator)
-        val newNum = domain.plus(domain.times(x.numerator, y.denominator), domain.times(x.denominator, y.numerator))
+        val newNum = (x.numerator * y.denominator) + (x.denominator * y.numerator)
         RationalExpression(newNum, newDenom)
       }
 
       override def negate(x: RationalExpression[A]): RationalExpression[A] = {
-        RationalExpression(domain.negate(x.numerator), x.denominator)
+        RationalExpression(x.numerator.negate, x.denominator)
       }
 
       override def times(x: RationalExpression[A], y: RationalExpression[A]): RationalExpression[A] = {
-        val newNum = domain.times(x.numerator, y.numerator)
-        val newDenom = domain.times(x.denominator, y.denominator)
+        val newNum = x.numerator * y.numerator
+        val newDenom = x.denominator * y.denominator
         RationalExpression(newNum, newDenom)
       }
 
       override def div(x: RationalExpression[A], y: RationalExpression[A]): RationalExpression[A] = {
 
         if(y == zero) throw new ArithmeticException("Cannot divide by zero!")
-        val newNum = domain.times(x.numerator, y.denominator)
-        val newDenom = domain.times(x.denominator, y.numerator)
+        val newNum = x.numerator * y.denominator
+        val newDenom = x.denominator * y.numerator
         RationalExpression(newNum, newDenom)
       }
 

@@ -3,6 +3,7 @@ package integer
 import algebra.ring.CommutativeRing
 import core.ModuloOperations._
 import core.{FinitelyGenerable, ResidueClass}
+import core.CommutativeRingOps._
 
 /**
   * Describes the CommutativeRing of the integers modulo a number.
@@ -33,17 +34,17 @@ object IntegersModN {
 
     override def modulus: Int = n
 
-    private val delegate: CommutativeRing[ResidueClass[Int]] = integers modulo_r n
+    private implicit val delegate: CommutativeRing[ResidueClass[Int]] = integers modulo_r n
 
     override def zero: ResidueClass[Int] = delegate.zero
 
     override def one: ResidueClass[Int] = delegate.one
 
-    override def plus(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = delegate.plus(x, y)
+    override def plus(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = x + y
 
-    override def negate(x: ResidueClass[Int]): ResidueClass[Int] = delegate.negate(x)
+    override def negate(x: ResidueClass[Int]): ResidueClass[Int] = x.negate
 
-    override def times(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = delegate.times(x, y)
+    override def times(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = x * y
 
   }
 }

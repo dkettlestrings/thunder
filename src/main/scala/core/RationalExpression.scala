@@ -1,5 +1,7 @@
 package core
 
+import EuclideanDomainOps._
+
 /**
   * A quotient of elements from a EuclideanDomain.
   *
@@ -7,9 +9,7 @@ package core
   *
   * @tparam A
   */
-trait RationalExpression[A] extends EqualityShim[RationalExpression[A]] with ArithmeticOps[RationalExpression[A]] {
-
-  override val me: RationalExpression[A] = this
+trait RationalExpression[A] extends EqualityShim[RationalExpression[A]] {
 
   implicit def domain: EuclideanDomain[A]
 
@@ -28,10 +28,9 @@ trait RationalExpression[A] extends EqualityShim[RationalExpression[A]] with Ari
 
   def !==(that: RationalExpression[A]): Boolean = !(this === that)
 
-  // TODO: use infix notation.  See https://github.com/dkettlestrings/thunder/issues/59
   override def equalz(other: RationalExpression[A]): Boolean = {
 
-    domain.times(numerator, other.denominator) == domain.times(denominator, other.numerator)
+    numerator * other.denominator == denominator * other.numerator
   }
 
   override def hashCode(): Int = numerator.hashCode() / denominator.hashCode()

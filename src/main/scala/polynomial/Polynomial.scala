@@ -13,9 +13,7 @@ import scala.util.{Failure, Success, Try}
   *
   * @tparam A The type of the coefficients.
   */
-trait Polynomial[A] extends ArithmeticOps[Polynomial[A]] with EqualityShim[Polynomial[A]] {
-
-  override val me: Polynomial[A] = this
+trait Polynomial[A] extends EqualityShim[Polynomial[A]] {
 
   def param: FormalParameter
 
