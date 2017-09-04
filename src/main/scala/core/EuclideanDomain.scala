@@ -3,7 +3,8 @@ package core
 import algebra.ring.CommutativeRing
 
 /**
-  * Created by dkettlestrings on 6/1/17.
+  *
+  * @tparam A
   */
 trait EuclideanDomain[A] extends CommutativeRing[A] {
 

@@ -9,8 +9,6 @@ object PolynomialOverIntsModPModdingContext {
 
     override def elementsUpTo(a: Polynomial[ResidueClass[Int]]): IndexedSeq[Polynomial[ResidueClass[Int]]] = {
 
-      val nonZeroElements = (polyRing.coefficients.elements - polyRing.coefficients.zero).toIndexedSeq
-
       // The @unchecked is to suppress a compiler warning for not matching against PositiveInfinity, which is impossible
       (a.degree: @unchecked) match {
 

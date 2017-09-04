@@ -10,7 +10,7 @@ trait PolynomialRingOverIntegersModP extends PolynomialRingOverField[ResidueClas
 
 }
 
-//TODO: Is there a better way than using this delegate?  Inheritence, typeclass, macro, etc?
+//TODO: Is there a better way than using this delegate?  Inheritance, typeclass, macro, etc?  See https://github.com/dkettlestrings/thunder/issues/62
 object PolynomialRingOverIntegersModP {
 
   def apply[A](p: Int, param: FormalParameter): PolynomialRingOverIntegersModP = {

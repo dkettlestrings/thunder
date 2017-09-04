@@ -29,16 +29,13 @@ class ResidueClassTest extends FunSuite with Matchers {
 
   test("Residue classes of different moduli cannot be equal") {
 
-    def intsMod4 = integers modulo_r 4
     def mod4 = intToResidueClass(4)
-
-    def intsMod6 = integers modulo_r 6
     def mod6 = intToResidueClass(6)
 
     mod4(2) != mod6(2) should be (true)
   }
 
-  //TODO: suppress compiler warnings for equality checking on incompatible types.  See https://github.com/dkettlestrings/thunder/issues/46
+  // TODO: suppress the compiler warning.  See https://github.com/dkettlestrings/thunder/issues/60
   test("Residue class equality takes types into account") {
 
     implicit def intsMod4 = integers modulo_r 4
@@ -71,7 +68,6 @@ class ResidueClassTest extends FunSuite with Matchers {
 
   test("Residue classes are printed in square bracket notation") {
 
-    def intsMod4 = integers modulo_r 4
     def mod4 = intToResidueClass(4)
     mod4(3).toString should be ("[3]_4")
   }

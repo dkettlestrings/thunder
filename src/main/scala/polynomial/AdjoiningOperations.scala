@@ -56,7 +56,7 @@ object AdjoiningOperations {
 
       override def param: FormalParameter = p
 
-      implicit val underlyingPolynomialRing = field r_adjoin p
+      private implicit val underlyingPolynomialRing = field r_adjoin p
 
       override def quot(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = {
 

@@ -20,9 +20,9 @@ object FiniteField {
 
     implicit val primeField = IntegersModP(p)
     implicit val polyRing = PolynomialRingOverIntegersModP(p, X)
-    implicit def ctxt = PolynomialOverIntsModPModdingContext(polyRing)
+    implicit def context = PolynomialOverIntsModPModdingContext(polyRing)
 
-    //TODO: look up polynomial to use!  Also, create a DSL for making this prettier.
+    //TODO: look up polynomial to use!  Also, create a DSL for making this prettier.  See https://github.com/dkettlestrings/thunder/issues/44
     val irreducible = (Polynomial(polyRing.coefficients.one, polyRing.coefficients.zero) ^ exp ) - polyRing.one
 
     implicit val delegate = polyRing modulo_f irreducible
@@ -31,7 +31,7 @@ object FiniteField {
 
       override def characteristic: Int = p
 
-      override def elements: Set[ResidueClass[Polynomial[ResidueClass[Int]]]] = ctxt.elementsUpTo(irreducible).map(poly => ResidueClass(poly, irreducible)).toSet
+      override def elements: Set[ResidueClass[Polynomial[ResidueClass[Int]]]] = context.elementsUpTo(irreducible).map(poly => ResidueClass(poly, irreducible)).toSet
 
       override def zero: ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.zero
 

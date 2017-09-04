@@ -45,8 +45,8 @@ private [polynomial] trait PolynomialRingOps[A] {
 
   def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = (x, y) match {
 
-    case (x, z) if z == zero => zero
-    case (z, y) if z == zero => zero
+    case (_, z) if z == zero => zero
+    case (z, _) if z == zero => zero
     case _ =>
 
       val terms = for {

@@ -1,7 +1,8 @@
 package core
 
 /**
-  * Created by dkettlestrings on 6/1/17.
+  *
+  * @tparam A
   */
 trait Field[A] extends EuclideanDomain[A] {
 
