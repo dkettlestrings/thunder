@@ -10,6 +10,18 @@ trait PolynomialRing[A] extends CommutativeRing[Polynomial[A]] {
 
   def coefficients: CommutativeRing[A]
 
+  private implicit val delegate = coefficients r_adjoin parameter
+
+  override def zero: Polynomial[A] = delegate.zero
+
+  override def one: Polynomial[A] = delegate.one
+
+  override def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x + y
+
+  override def negate(x: Polynomial[A]): Polynomial[A] = x.negate
+
+  override def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x * y
+
 }
 
 object PolynomialRing {
@@ -19,18 +31,5 @@ object PolynomialRing {
     override def coefficients: CommutativeRing[A] = coefficientRing
 
     override def parameter: FormalParameter = p
-
-    private implicit val delegate = coefficients r_adjoin p
-
-    override def zero: Polynomial[A] = delegate.zero
-
-    override def one: Polynomial[A] = delegate.one
-
-    override def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x + y
-
-    override def negate(x: Polynomial[A]): Polynomial[A] = x.negate
-
-    override def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x * y
-
   }
 }
