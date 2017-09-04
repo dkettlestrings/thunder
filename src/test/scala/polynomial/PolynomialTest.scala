@@ -62,10 +62,9 @@ class PolynomialTest extends FunSuite with Matchers {
     Polynomial(one, two) != Polynomial(two, one) should be (true)
   }
 
-  //TODO: Suppress type check warning on equals.  See https://github.com/dkettlestrings/thunder/issues/46
-  test("Polynomial equality checks for type") {
+  test("Polynomials with different formal parameters are not equal") {
 
-    Polynomial(two) == 2 should be (false)
+    Polynomial(X, one, two) == Polynomial(polynomial.Predef.Y, one, two) should be (false)
   }
 
   test("Hashcode respects equality") {

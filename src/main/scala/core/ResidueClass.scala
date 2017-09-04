@@ -1,6 +1,5 @@
 package core
 
-import algebra.ring.CommutativeRing
 import scala.util.{Try, Success, Failure}
 
 /**
@@ -14,30 +13,11 @@ import scala.util.{Try, Success, Failure}
   *
   * @tparam A
   */
-trait ResidueClass[A] extends EquivalenceClass[A] {
+trait ResidueClass[A] extends EquivalenceClass[A] with ArithmeticOps[ResidueClass[A]] {
+
+  override val me = this
 
   def modulus: A
-
-  def +(other: ResidueClass[A])(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.plus(this, other)
-
-  def -(other: ResidueClass[A])(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.minus(this, other)
-
-  def *(other: ResidueClass[A])(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.times(this, other)
-
-  /**
-    * Exponentiation (repeated multiplication) operator.
-    *
-    * Note that this implementation adopts the convention of if z is the zero element, z^0 == 0.
-    *
-    * @param exp
-    * @param ring
-    * @return
-    */
-  def ^(exp: Int)(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.pow(this, exp)
-
-  def negate(implicit ring: CommutativeRing[ResidueClass[A]]): ResidueClass[A] = ring.negate(this)
-
-  def /(other: ResidueClass[A])(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(this, other)
 
   def inv(implicit field: Field[ResidueClass[A]]): ResidueClass[A] = field.div(field.one, this)
 
