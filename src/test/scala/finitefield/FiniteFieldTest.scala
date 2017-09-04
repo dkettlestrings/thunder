@@ -27,7 +27,7 @@ class FiniteFieldTest extends FunSuite with Matchers {
     two * two should be (one)
   }
 
-  //TODO: get classOf on the finite field and make tests that validate arithmetic properties of elements
+  //TODO: get classOf on the finite field and make tests that validate arithmetic properties of elements.  See https://github.com/dkettlestrings/thunder/issues/63
   test("A finite field of 9 elements should be constructable") {
 
     implicit val ff = FiniteField(3, 2)

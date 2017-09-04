@@ -11,7 +11,7 @@ object ModuloOperations {
 
   implicit def toModdable[A](er: EuclideanDomain[A]): ModdableEuclideanDomain[A] = new ModdableEuclideanDomain[A] {
 
-    override def originalRing = er
+    override def originalRing: EuclideanDomain[A] = er
   }
 
   trait ModdableEuclideanDomain[A] {

@@ -1,6 +1,6 @@
 package finitefield
 
-//TODO: Get rid of this stupid thing!
+//TODO: Get rid of this stupid thing!  See https://github.com/dkettlestrings/thunder/issues/61
 object ListOps {
 
   def product[A](input: List[A], size: Int): Set[List[A]] = {

@@ -1,7 +1,5 @@
 package core
 
-import scala.util.{Failure, Success, Try}
-
 /**
   * A quotient of elements from a EuclideanDomain.
   *
@@ -9,11 +7,11 @@ import scala.util.{Failure, Success, Try}
   *
   * @tparam A
   */
-trait RationalExpression[A] extends EquivalenceClass[(A, A)] with ArithmeticOps[RationalExpression[A]] {
+trait RationalExpression[A] extends EqualityShim[RationalExpression[A]] with ArithmeticOps[RationalExpression[A]] {
 
-  override val me = this
+  override val me: RationalExpression[A] = this
 
-  def domain: EuclideanDomain[A]
+  implicit def domain: EuclideanDomain[A]
 
   def numerator: A
 
@@ -30,26 +28,10 @@ trait RationalExpression[A] extends EquivalenceClass[(A, A)] with ArithmeticOps[
 
   def !==(that: RationalExpression[A]): Boolean = !(this === that)
 
-  override def representative: (A, A) = (numerator, denominator)
+  // TODO: use infix notation.  See https://github.com/dkettlestrings/thunder/issues/59
+  override def equalz(other: RationalExpression[A]): Boolean = {
 
-  override def relation: EquivalenceRelation[(A, A)] = new EquivalenceRelation[(A, A)] {
-
-    override def areEquivalent(x: (A, A), y: (A, A)): Boolean = {
-
-      val (num1, denom1) = x
-      val (num2, denom2) = y
-
-      domain.times(num1, denom2) == domain.times(denom1, num2)
-    }
-  }
-
-  //TODO: Create some kind of Equalable trait to wrap the type checking.  This would be used in many places.  See https://github.com/dkettlestrings/thunder/issues/46
-  override def equals(obj: scala.Any): Boolean = {
-
-    Try(obj.asInstanceOf[RationalExpression[A]]) match {
-      case Success(re) => this.relation.areEquivalent(this.representative, re.representative)
-      case Failure(throwable) => false
-    }
+    domain.times(numerator, other.denominator) == domain.times(denominator, other.numerator)
   }
 
   override def hashCode(): Int = numerator.hashCode() / denominator.hashCode()

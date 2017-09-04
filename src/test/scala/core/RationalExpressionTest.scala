@@ -18,7 +18,7 @@ class RationalExpressionTest extends FunSuite with Matchers {
     RationalExpression(2, 3) != RationalExpression(4, 6) should be (false)
   }
 
-  //TODO: suppress compiler warning for equality checking on incompatible types.  See https://github.com/dkettlestrings/thunder/issues/46
+  // TODO: suppress the compiler warning.  See https://github.com/dkettlestrings/thunder/issues/60
   test("Equality checks for compatible types") {
 
     RationalExpression(2, 1) != 2 should be (true)

@@ -15,7 +15,7 @@ import scala.util.{Failure, Success, Try}
   */
 trait Polynomial[A] extends ArithmeticOps[Polynomial[A]] with EqualityShim[Polynomial[A]] {
 
-  override val me = this
+  override val me: Polynomial[A] = this
 
   def param: FormalParameter
 
