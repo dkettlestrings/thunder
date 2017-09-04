@@ -4,7 +4,7 @@ import integer.{IntegersModN, IntegersModP, integers}
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.AdjoiningOperations._
 import polynomial.Predef.X
-import core.CommutativeRingOps._
+import core.InfixOps._
 
 class AdjoiningOperationsTest extends FunSuite with Matchers {
 

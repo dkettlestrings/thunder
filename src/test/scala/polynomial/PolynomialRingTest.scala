@@ -3,7 +3,7 @@ package polynomial
 import integer.IntegersModN
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.Predef.X
-import core.CommutativeRingOps._
+import core.InfixOps._
 
 class PolynomialRingTest extends FunSuite with Matchers {
 

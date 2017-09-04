@@ -1,6 +1,6 @@
 package integer
 
-import core.CommutativeRingOps._
+import core.InfixOps._
 import org.scalatest.{FunSuite, Matchers}
 
 class IntegersModNTest extends FunSuite with Matchers {

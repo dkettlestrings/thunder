@@ -1,6 +1,6 @@
 package integer
 
-import core.FieldOps._
+import core.InfixOps._
 import org.scalatest.{FunSuite, Matchers}
 
 class IntegersModPTest extends FunSuite with Matchers {

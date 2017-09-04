@@ -1,13 +1,12 @@
 package core
 
 import algebra.ring.CommutativeRing
+import InfixOps._
 import org.scalatest.{FunSuite, Matchers}
 
 class InfixOpsTest extends FunSuite with Matchers {
 
   test("An implicit field allows for infix operations") {
-
-    import FieldOps._
 
     case class Frac(num: Double, denom: Double)
 
@@ -34,8 +33,6 @@ class InfixOpsTest extends FunSuite with Matchers {
   }
 
   test("An implicit Euclidean domain allows for infix operations") {
-
-    import EuclideanDomainOps._
 
     case class MyInt(value: Int)
 
@@ -65,8 +62,6 @@ class InfixOpsTest extends FunSuite with Matchers {
   }
 
   test("An implicit commutative ring allows for infix operations") {
-
-    import CommutativeRingOps._
 
     case class Int_(value: Int)
 

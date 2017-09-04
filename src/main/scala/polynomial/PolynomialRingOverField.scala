@@ -2,7 +2,7 @@ package polynomial
 
 import core.{EuclideanDomain, ExtendedInteger, Field}
 import polynomial.AdjoiningOperations._
-import core.EuclideanDomainOps._
+import core.InfixOps._
 
 trait PolynomialRingOverField[A] extends EuclideanDomain[Polynomial[A]] with PolynomialRing[A] {
 
