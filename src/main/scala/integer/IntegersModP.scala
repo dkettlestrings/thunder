@@ -2,7 +2,7 @@ package integer
 
 import core.ModuloOperations._
 import core.{FinitelyGenerable, Field, ResidueClass}
-import core.FieldOps._
+import core.InfixOps._
 
 /**
   * Describes the Field of the integers modulo a prime.

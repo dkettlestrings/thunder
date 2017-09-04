@@ -6,7 +6,7 @@ import integer.IntegersModP
 import polynomial.Polynomial
 import polynomial.Predef.X
 
-import core.EuclideanDomainOps._
+import core.InfixOps._
 
 import scala.language.postfixOps
 
@@ -28,7 +28,6 @@ object FiniteField {
     val irreducible = (Polynomial(polyRing.coefficients.one, polyRing.coefficients.zero) ^ exp ) - polyRing.one
 
     implicit val delegate = polyRing modulo_f irreducible
-    import core.FieldOps._
 
     new FiniteField {
 

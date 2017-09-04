@@ -3,7 +3,7 @@ package integer
 import algebra.ring.CommutativeRing
 import core.ModuloOperations._
 import core.{FinitelyGenerable, ResidueClass}
-import core.CommutativeRingOps._
+import core.InfixOps._
 
 /**
   * Describes the CommutativeRing of the integers modulo a number.

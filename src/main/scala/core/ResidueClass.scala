@@ -1,6 +1,6 @@
 package core
 
-import EuclideanDomainOps._
+import InfixOps._
 
 /**
   *

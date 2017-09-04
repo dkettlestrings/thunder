@@ -2,7 +2,7 @@ package core
 
 import core.QuotientOperations._
 import integer.integers
-import FieldOps._
+import InfixOps._
 import org.scalatest.{FunSuite, Matchers}
 
 import scala.language.postfixOps

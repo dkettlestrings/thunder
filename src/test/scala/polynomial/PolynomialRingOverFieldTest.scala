@@ -3,7 +3,7 @@ package polynomial
 import integer.IntegersModP
 import org.scalatest.{FunSuite, Matchers}
 import polynomial.Predef.X
-import core.EuclideanDomainOps._
+import core.InfixOps._
 
 class PolynomialRingOverFieldTest extends FunSuite with Matchers {
 

@@ -1,7 +1,7 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
-import core.CommutativeRingOps._
+import core.InfixOps._
 
 private [polynomial] trait PolynomialRingOps[A] {
 

@@ -2,7 +2,7 @@ package polynomial
 
 import algebra.ring.CommutativeRing
 import polynomial.AdjoiningOperations._
-import core.CommutativeRingOps._
+import core.InfixOps._
 
 trait PolynomialRing[A] extends CommutativeRing[Polynomial[A]] {
 
