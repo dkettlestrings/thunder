@@ -1,6 +1,7 @@
 package polynomial
 
 import algebra.ring.CommutativeRing
+import core.CommutativeRingOps._
 
 private [polynomial] trait PolynomialRingOps[A] {
 
@@ -23,7 +24,7 @@ private [polynomial] trait PolynomialRingOps[A] {
         d <- 0 to List(x.degree.toInt, y.degree.toInt).max
         c1 = x.coefficient(d)
         c2 = y.coefficient(d)
-      } yield coefficientRing.plus(c1.getOrElse(coefficientRing.zero), c2.getOrElse(coefficientRing.zero))
+      } yield c1.getOrElse(coefficientRing.zero) + c2.getOrElse(coefficientRing.zero)
 
       Polynomial(param, sumsOfCoefficients.toList.reverse)
 
@@ -37,7 +38,7 @@ private [polynomial] trait PolynomialRingOps[A] {
 
         d <- 0 to x.degree.toInt
         coefficient = x.coefficient(d)
-      } yield coefficientRing.negate(coefficient.get)
+      } yield coefficient.get.negate
 
       Polynomial(param, negatedCoefficients.toList.reverse)
 
@@ -56,7 +57,7 @@ private [polynomial] trait PolynomialRingOps[A] {
 
         c1 = x.coefficient(d1)
         c2 = y.coefficient(d2)
-      } yield Polynomial[A](param, coefficientRing.times(c1.get, c2.get) :: List.fill(d1 + d2)(coefficientRing.zero))
+      } yield Polynomial[A](param, c1.get * c2.get :: List.fill(d1 + d2)(coefficientRing.zero))
 
       terms.foldLeft(zero)(plus)
 

@@ -1,14 +1,14 @@
 package core
 
+import EuclideanDomainOps._
+
 /**
   *
   * @tparam A
   */
-trait ResidueClass[A] extends EqualityShim[ResidueClass[A]] with ArithmeticOps[ResidueClass[A]] {
+trait ResidueClass[A] extends EqualityShim[ResidueClass[A]]{
 
-  override val me: ResidueClass[A] = this
-
-  def domain: EuclideanDomain[A]
+  implicit def domain: EuclideanDomain[A]
 
   def representative: A
 
@@ -17,10 +17,10 @@ trait ResidueClass[A] extends EqualityShim[ResidueClass[A]] with ArithmeticOps[R
   override def equalz(other: ResidueClass[A]): Boolean = {
 
     this.modulus == other.modulus &&
-    domain.mod(representative, modulus) == domain.mod(other.representative, other.modulus)
+      (representative mod modulus) == (other.representative mod other.modulus)
   }
 
-  override def hashCode(): Int = modulus.hashCode * domain.mod(representative, modulus).hashCode
+  override def hashCode(): Int = modulus.hashCode * (representative mod modulus).hashCode
 
   override def toString: String = s"[$representative]_$modulus"
 
@@ -37,7 +37,7 @@ object ResidueClass {
 
     override val modulus: A = mod
 
-    override val representative: A = domain.mod(residue, modulus)
+    override val representative: A = residue mod modulus
 
   }
 }

@@ -2,6 +2,7 @@ package polynomial
 
 import algebra.ring.CommutativeRing
 import polynomial.AdjoiningOperations._
+import core.CommutativeRingOps._
 
 trait PolynomialRing[A] extends CommutativeRing[Polynomial[A]] {
 
@@ -19,17 +20,17 @@ object PolynomialRing {
 
     override def parameter: FormalParameter = p
 
-    private val delegate = coefficients r_adjoin p
+    private implicit val delegate = coefficients r_adjoin p
 
     override def zero: Polynomial[A] = delegate.zero
 
     override def one: Polynomial[A] = delegate.one
 
-    override def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = delegate.plus(x, y)
+    override def plus(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x + y
 
-    override def negate(x: Polynomial[A]): Polynomial[A] = delegate.negate(x)
+    override def negate(x: Polynomial[A]): Polynomial[A] = x.negate
 
-    override def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = delegate.times(x, y)
+    override def times(x: Polynomial[A], y: Polynomial[A]): Polynomial[A] = x * y
 
   }
 }

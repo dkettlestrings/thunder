@@ -6,6 +6,8 @@ import integer.IntegersModP
 import polynomial.Polynomial
 import polynomial.Predef.X
 
+import core.EuclideanDomainOps._
+
 import scala.language.postfixOps
 
 trait FiniteField extends Field[ResidueClass[Polynomial[ResidueClass[Int]]]] with FinitelyGenerable[ResidueClass[Polynomial[ResidueClass[Int]]]] {
@@ -26,6 +28,7 @@ object FiniteField {
     val irreducible = (Polynomial(polyRing.coefficients.one, polyRing.coefficients.zero) ^ exp ) - polyRing.one
 
     implicit val delegate = polyRing modulo_f irreducible
+    import core.FieldOps._
 
     new FiniteField {
 
@@ -37,13 +40,13 @@ object FiniteField {
 
       override def one: ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.one
 
-      override def plus(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.plus(x, y)
+      override def plus(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = x + y
 
-      override def negate(x: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.negate(x)
+      override def negate(x: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = x.negate
 
-      override def times(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.times(x, y)
+      override def times(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = x * y
 
-      override def div(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = delegate.div(x, y)
+      override def div(x: ResidueClass[Polynomial[ResidueClass[Int]]], y: ResidueClass[Polynomial[ResidueClass[Int]]]): ResidueClass[Polynomial[ResidueClass[Int]]] = x / y
 
     }
   }

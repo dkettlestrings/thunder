@@ -1,5 +1,6 @@
 package finitefield
 
+import core.FieldOps._
 import org.scalatest.{FunSuite, Matchers}
 
 class FiniteFieldTest extends FunSuite with Matchers {
