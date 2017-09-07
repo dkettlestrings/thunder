@@ -1,14 +1,14 @@
 package integer
 
 import core.ModuloOperations._
-import core.{FinitelyGenerable, Field, ResidueClass}
+import core.{Finite, Field, ResidueClass}
 import core.InfixOps._
 
 /**
   * Describes the Field of the integers modulo a prime.
   *
   */
-trait IntegersModP extends Field[ResidueClass[Int]] with IntegersModN with FinitelyGenerable[ResidueClass[Int]]
+trait IntegersModP extends Field[ResidueClass[Int]] with IntegersModN with Finite[ResidueClass[Int]]
 
 /**
   * Companion object for creating instances.

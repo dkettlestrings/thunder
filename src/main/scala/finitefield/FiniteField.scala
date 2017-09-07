@@ -1,7 +1,7 @@
 package finitefield
 
 import core.ModuloOperations._
-import core.{FinitelyGenerable, Field, ResidueClass}
+import core.{Finite, Field, ResidueClass}
 import integer.IntegersModP
 import polynomial.Polynomial
 import polynomial.Predef.X
@@ -10,7 +10,7 @@ import core.InfixOps._
 
 import scala.language.postfixOps
 
-trait FiniteField extends Field[ResidueClass[Polynomial[ResidueClass[Int]]]] with FinitelyGenerable[ResidueClass[Polynomial[ResidueClass[Int]]]] {
+trait FiniteField extends Field[ResidueClass[Polynomial[ResidueClass[Int]]]] with Finite[ResidueClass[Polynomial[ResidueClass[Int]]]] {
 
   def characteristic: Int
 
