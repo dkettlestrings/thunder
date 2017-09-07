@@ -22,19 +22,9 @@ object IntegersModP {
     */
   def apply(p: Int): IntegersModP = new IntegersModP {
 
-    override val modulus: Int = p
+    override lazy val modulus: Int = p
 
     private implicit val delegate: Field[ResidueClass[Int]] = integers modulo_f p
-
-    override def zero: ResidueClass[Int] = delegate.zero
-
-    override def one: ResidueClass[Int] = delegate.one
-
-    override def plus(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = x + y
-
-    override def negate(x: ResidueClass[Int]): ResidueClass[Int] = x.negate
-
-    override def times(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = x * y
 
     override def div(x: ResidueClass[Int], y: ResidueClass[Int]): ResidueClass[Int] = x / y
 
