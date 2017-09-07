@@ -14,6 +14,10 @@ trait FiniteField extends Field[ResidueClass[Polynomial[ResidueClass[Int]]]] wit
 
   def characteristic: Int
 
+  def irreducible: Polynomial[ResidueClass[Int]]
+
+  def classOf(polynomial: Polynomial[ResidueClass[Int]]): ResidueClass[Polynomial[ResidueClass[Int]]]
+
 }
 
 object FiniteField {
@@ -24,14 +28,17 @@ object FiniteField {
     implicit val polyRing = PolynomialRingOverIntegersModP(p, X)
     implicit def context = PolynomialOverIntsModPModdingContext(polyRing)
 
-    //TODO: look up polynomial to use!  Also, create a DSL for making this prettier.  See https://github.com/dkettlestrings/thunder/issues/44
-    val irreducible = (Polynomial(polyRing.coefficients.one, polyRing.coefficients.zero) ^ exp ) - polyRing.one
-
-    implicit val delegate = polyRing modulo_f irreducible
-
     new FiniteField {
 
       override def characteristic: Int = p
+
+      override val irreducible = IrrreducibilityOps.monicIrreduciblePolynomialsOfDegree(exp, polyRing).head
+
+      private implicit val delegate = polyRing modulo_f irreducible
+
+      override def classOf(polynomial: Polynomial[ResidueClass[Int]]): ResidueClass[Polynomial[ResidueClass[Int]]] = {
+        ResidueClass(polynomial, irreducible)
+      }
 
       override def elements: Set[ResidueClass[Polynomial[ResidueClass[Int]]]] = context.elementsUpTo(irreducible).map(poly => ResidueClass(poly, irreducible)).toSet
 
