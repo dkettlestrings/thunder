@@ -2,7 +2,7 @@ package integer
 
 import algebra.ring.CommutativeRing
 import core.ModuloOperations._
-import core.{FinitelyGenerable, ResidueClass}
+import core.{Finite, ResidueClass}
 import core.InfixOps._
 
 /**
@@ -10,7 +10,7 @@ import core.InfixOps._
   *
   * See https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n
   */
-trait IntegersModN extends CommutativeRing[ResidueClass[Int]] with FinitelyGenerable[ResidueClass[Int]] {
+trait IntegersModN extends CommutativeRing[ResidueClass[Int]] with Finite[ResidueClass[Int]] {
 
 
   val modulus: Int
